@@ -15,7 +15,7 @@ class Subscriber(db.Model):
     user_email = db.Column(db.String, nullable=False, unique=True)
     password_hash = db.Column(db.String, nullable= False)
     comments = db.relationship('Comment', backref='commenter', lazy=True)
-    viewerreg= db.Column(db.DateTime,nullable= False)
+    viewerreg= db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __init__(self, user_name, user_email,
               password_hash):
@@ -23,7 +23,7 @@ class Subscriber(db.Model):
         self.user_name = user_name
         self.user_email = user_email
         self.password_hash= bcrypt.generate_password_hash(password_hash).decode('utf-8')
-        self.viewerreg = datetime.now()
+        #self.viewerreg = datetime.now()
 
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
@@ -45,26 +45,29 @@ class Subscriber(db.Model):
 
 class Creators(db.Model):
     id = db.Column(db.String, primary_key=True)
+    admin = db.Column(db.Boolean,default= False)
     user_name=db.Column(db.String,nullable=False, unique= True)
     first_name = db.Column(db.String(20), nullable=False )
     second_name = db.Column(db.String(20), nullable=False)
+    visited_on = db.Column(db.DateTime)
     creator_email = db.Column(db.String, nullable=False, unique=True)
     creator_password = db.Column(db.String, nullable=False)
     creations = db.relationship('Content', backref='creator', lazy =True)
-    creatorreg = db.Column(db.DateTime,nullable= False)
+    creatorreg = db.Column(db.DateTime,index=True, default=datetime.utcnow)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
-    confirmed_on = db.Column(db.DateTime, nullable=True)
+    confirmed_on = db.Column(db.DateTime)
 
     def __init__(self, user_name, first_name, second_name, creator_email,
-              creator_password,confirmed=False, confirmed_on=None):
+              creator_password,confirmed=False, confirmed_on=None, visited_on= None):
         self.id = user_name
         self.user_name = user_name
         self.first_name = first_name
         self.second_name = second_name
         self.creator_email = creator_email
         self.creator_password= bcrypt.generate_password_hash(creator_password).decode('utf-8')
-        self.creatorreg = datetime.now()
+        self.visited_on = visited_on
         self.confirmed = confirmed
+        self.admin = confirmed
         self.confirmed_on = confirmed_on
 
     def check_password_correction(self, attempted_password):
@@ -96,7 +99,7 @@ class Content(db.Model):
     genre = db.Column( db.String, nullable=False)
     creator_id = db.Column( db.String,db.ForeignKey('creators.id'))
     content= db.Column(db.Text, nullable=False )
-    contentreg = db.Column(db.DateTime,nullable= False)
+    contentreg = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     # def __repr__(self):
     #     return f'<Content "{self.introduction[:20]}...">'
@@ -149,7 +152,7 @@ class Comment(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text, nullable=False)
     subscriber_id= db.Column(db.String,db.ForeignKey('subscriber.id'))
-    commentreg = db.Column(db.DateTime,nullable= False)
+    commentreg = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     
 
 

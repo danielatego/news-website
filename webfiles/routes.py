@@ -92,6 +92,9 @@ def login_page():
 @login_required
 def createcontent_page():
     form = ContentForm()
+    current_user.visited_on = datetime.now()
+    db.session.add(current_user)
+    db.session.commit()
     if form.validate_on_submit():
         file = request.files['image']
         filename = secure_filename(file.filename)
