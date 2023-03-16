@@ -1,0 +1,47 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Subscriber Registration
+{% endblock%}
+
+{% block content %}
+<body class="text-center">
+    <div class="container">
+        <form method="POST" autocomplete="off"class="form-register" style="color:rgb(8, 8, 8)">
+            {{ form.hidden_tag() }}
+            <br>
+            <img src="{{url_for('static', filename = 'logo.svg')}}" width="100" height="100" alt="">
+            <br>
+            <h1 class="h3 mb-3 font-weight-normal">
+                Please Create your Subscriber Account.
+            </h1>
+            <br>
+            {{ form.user_name.label() }}
+            {{ form.user_name(class="form-control", placeholder="User Name") }}
+
+            {{ form.user_email.label() }}
+            {{ form.user_email(class="form-control", placeholder="Email Address") }}
+
+            {{ form.password1.label() }}
+            {{ form.password1(class="form-control", placeholder="Password") }}
+
+            {{ form.password2.label() }}
+            {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+            
+            <br>
+            
+            {{ form.submit(class="btn btn-lg btn-block btn-primary")}}
+            
+            <br>
+            <br>
+
+            <div class="checkbox mb-3">
+                <h6>Already have an account?</h6>
+                <a href="{{url_for('login_page')}}" class="btn btn-sm btn-secondary">Login</a>
+            </div>
+
+        </form>
+    </div>
+    
+</body>
+{% endblock%}

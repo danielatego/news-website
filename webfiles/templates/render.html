@@ -1,0 +1,12 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Wavesinall: lets debate.{{content.id}}
+{% endblock%}
+
+{% block content %}
+<input type="hidden" name="contentx" id="content_idx" value="{{content.content}}">
+<div id="editorjs"></div>
+<script src="../static/render.js"></script>
+
+{% endblock%}

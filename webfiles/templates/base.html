@@ -1,8 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-paragraph-with-alignment@3.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@2.5.0/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@2.8.1/dist/bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/attaches@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>
       {% block title %}
       {% endblock %}
@@ -10,54 +18,67 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid ">
-            <a class="navbar-brand" href="#">
-                <img src="{{url_for('static', filename = 'logo.svg')}}" alt="" width="40" height="40">
-                  <span class="navbar-text p-2" style="font-size: 24px;">
-                    Waves
-                  </span>
-            </a>
+          <a class="navbar-brand position-absolute top-0 start-50 translate-middle-x " href="#">
+              <img src="{{url_for('static', filename = 'logo.svg')}}" alt="" width="40" height="40">
+                <span class="navbar-text p-2" style="font-size: 24px;">
+                  Waves
+                </span>
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"style="color:rgb(255, 255, 255)"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link " aria-current="page" href="{{url_for('home_page')}}">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
+              <li class="nav-item ">
+                <a class="nav-link "aria-current="page" href="{{url_for('createcontent_page')}}">Create</a>
               </li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <ul class="navbar-nav ">
+              {% if current_user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" >Welcome, {{ current_user.user_name }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="{{url_for('logout_page')}}">Logout</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="{{url_for('login_page')}}">Login</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">Registration</a>
+                <ul class="dropdown-menu">
+                  <a class="dropdown-item" aria-current="page" href="{{url_for('viewerregister_page')}}">Subscriber</a>
+                  <a class="dropdown-item" aria-current="page" href="{{url_for('creatorregister_page')}}">Author</a>
+              </ul>
+              </li>
+              {% endif %}
+            </ul>
           </div>
         </div>
     </nav>
+    
+  
+    {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} "role = "alert">
+                        {{ message }}
+                        <button type="button" class="m1-2 mb-1 btn-close" data-bs-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true"></span>
+                      </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
     {% block content %}
     {% endblock %}
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
+    
     
      
     

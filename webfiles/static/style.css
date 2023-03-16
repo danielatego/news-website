@@ -1,0 +1,147 @@
+.bitn{
+    text-align: center;
+    align-items:center;
+    justify-content: center;
+    display: flex;
+    background:rgb(119, 206, 119);
+    padding:.4rem;
+    width:20%;
+    margin:auto;
+    border-radius: 8px;
+    color:white;
+    cursor: pointer;
+}
+.bitn:hover{
+    background:rgb(17, 170, 17);
+}
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	font-family: sans-serif;
+	min-height: 100%;
+	color: #555;
+}
+
+.content{
+	max-width: 1000px;
+	margin: 30px auto;
+	padding: 20px;
+}
+
+.book{
+	display: grid;
+	grid-template-columns: 1fr ;
+	grid-template-row: ;
+	grid-column-gap: 30px;
+	margin-bottom: 5px;
+	border: thin solid #d4d4d4;
+	padding: 10px;
+	background-color: #f9f9f9;
+	color: #000000;
+}
+
+.book img{
+	width:  100%;
+}
+
+.book .title{
+	font-size: 22px;
+	font-weight: bold;
+}
+.book.title:hover{
+	--_p: 100%;
+	--_s: .3s;
+}
+.book .about{
+	font-size: 20px;
+	margin-top: 7px;
+}
+.book .info{
+	margin-top: 20px;
+}
+
+
+.load-more-button{
+	display: block;
+	width: 60px;
+	height: 60px;
+	font-size: 16px;
+	margin: 50px auto;
+	border: thin solid #e4e4e4;
+	border-radius: 50%;
+	line-height: 60px;
+	cursor: pointer;
+	transition: box-shadow .2s;
+	background-color: #fff;
+}
+.load-more-button span{
+	display: block;
+	transform: rotate(90deg);
+	font-size: 22px;
+	color: #999;
+}
+.load-more-button:hover{
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+.load-more-button:active{
+	background-color: #555;
+	box-shadow: none;
+}
+  a:link {
+	text-decoration: none;
+  }
+  
+  a {
+	color: black;
+	overflow: hidden;
+	position: relative;
+	display: inline-block;
+	color: black;
+  }
+  
+  a::before,
+  a::after {
+   content: '';
+	position: absolute;
+	width: 100%;
+	left: 0;
+  }
+  a::before {
+	background-color: #54b3d6;
+	color: black;
+	height: 2px;
+	bottom: 0;
+	transform-origin: 100% 50%;
+	transform: scaleX(0);
+	transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  a::after {
+	content: attr(data-replace);
+	height: 100%;
+	top: 0;
+	transform-origin: 100% 50%;
+	transform: translate3d(200%, 0, 0);
+	transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+	color: #54b3d6;
+  }
+  
+  a:hover::before {
+	transform-origin: 0% 50%;
+	transform: scaleX(1);
+  }
+  a:hover::after {
+	transform: translate3d(0, 0, 0);
+  }
+  
+  a span {
+	display: inline-block;
+	transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  
+  a:hover span {
+	transform: translate3d(-200%, 0, 0);
+  }

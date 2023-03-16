@@ -5,5 +5,81 @@ Wavesinall: lets debate.
 {% endblock%}
 
 {% block content %}
+<ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link"  href="{{url_for('genre_page',genre = 'News')}}">News</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('genre_page',genre = 'Celebrities')}}">Celebrities</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('genre_page',genre = 'Beauty and Lifestyle')}}">Beauty and Lifestyle</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('genre_page',genre = 'Mental Health')}}">Mental Health</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('genre_page',genre = 'Food and Beverage')}}">Food and Beverage</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('genre_page',genre = 'Flowers')}}">Flowers</a>
+  </li>
+</ul>
+<br>
 
+<div class="row row-cols-1 row-cols-md-4 g-4">
+  {%for content in contents%}
+  
+  <div class="col">
+    <div class="card h-100">
+      <img src="{{url_for('static', filename = content.image)}}" class="object-fit-fill border rounded card-img-top" loading="lazy"alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{content.title}}</h5>
+        <p class="card-text">{{content.introduction}}</p>
+        <a href="{{ url_for('render_page',id = content.id)}}" class="btn btn-primary">Read Article</a>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Last updated {{content.time_since_creation}} </small>
+      </div>
+    </div>
+  </div>
+  {%endfor%}
+</div>
+   
+  
 {% endblock%}
+<!--
+<div class="container text-center">
+  <div class="row align-items-start">
+    {% for content in contents %}
+      <div class="col" style="width: 18rem;">
+        <img src="{{url_for('static', filename = content.image)}}"  class="card-img-top" alt="...">
+        <div class="card-body">
+        <h5 class="card-title">{{content.title}}</h5>
+        <p class="card-text">{{content.introduction}}</p>
+        <a href="{{ url_for('render_page',id = content.id)}}" class="btn btn-primary">Read Article</a>
+      </div>
+      <br>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="container px-4 text-center">
+  <div class="row gx-5">
+    {% for content in contents %}
+    <div class="col">
+    <img src="{{url_for('static', filename = content.image)}}"  width="100" height="100" alt="">
+    <div class="fw-bold p-3">{{content.title}}</div>
+    <p class="text-wrap">{{content.introduction}}</p>
+    <a href="{{ url_for('render_page',id = content.id)}}" class="btn btn-primary">Read Article</a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+-->class="object-fit-cover border rounded"
