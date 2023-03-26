@@ -27,7 +27,10 @@ Creator Registration
 
             {{ form.creator_email.label() }}
             {{ form.creator_email(class="form-control", placeholder="Email Address") }}
-
+            <br>
+            {{ form.about_yourself.label() }}
+            {{ form.about_yourself(class="form-control", placeholder="Tell us about yourself in 200 words") }}
+            <br>
             {{ form.password1.label() }}
             {{ form.password1(class="form-control", placeholder="Password") }}
 

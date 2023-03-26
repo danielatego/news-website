@@ -1,0 +1,84 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Wavesinall: Messages.
+{% endblock%}
+
+{% block content %}
+    
+    <input type="hidden" name="newmessage" id="newmessage" value="{{newmessage}}">
+    <input type="hidden" name="unverified" id="unverified" value="{{unverified}}">
+    <input type="hidden" name="verified" id="Verified" value="{{verified}}">
+    <input type="hidden" name="newauthor" id="newauthor" value="{{newauthor}}">
+    <input type="hidden" name="unverifiedauthor" id="unverifiedauthor" value="{{unverifiedauthor}}">
+    <input type="hidden" name="verifiedauthor" id="verifiedauthor" value="{{verifiedauthor}}">
+
+    <div class="container-fluid">
+        <br>
+        <div class="row ">
+            <div class="col">
+                <div class="p-1 mb-2 bg-primary-subtle text-center fs-5 fw-bold rounded-4">New articles</div>
+                <div class="content">
+                    <!-- content displaye from the javascript file -->
+                    
+                    <button onclick="loadnew_messagesData()" class="load-more-button"><span>&#10093;</span> </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-1 mb-2 bg-success-subtle text-center fs-5 fw-bold rounded-4">New Authors</div>
+                <div class="content3">
+                    <!-- content displaye from the javascript file -->
+                    
+                    <button onclick="loadnewauthorData()" class="load-more-button"><span>&#10093;</span> </button>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col">
+                <div class="p-1 mb-2 bg-primary-subtle text-center fs-5 fw-bold rounded-4">Unverified articles</div>
+                <div class="content1">
+                    <!-- content displaye from the javascript file -->
+                    
+                    <button onclick="loadUnverifiedData()" class="load-more-button"><span>&#10093;</span> </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-1 mb-2 bg-success-subtle text-center fs-5 fw-bold rounded-4">Unverified Authors</div>
+                <div class="content4">
+                    <!-- content displaye from the javascript file -->
+                    
+                    <button onclick="loadunverifiedauthorData()" class="load-more-button"><span>&#10093;</span> </button>
+                </div>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col">
+                <div class="p-1 mb-2 bg-primary-subtle text-center fs-5 fw-bold rounded-4">Verified articles</div>
+                <div class="content2">
+                    <!-- content displaye from the javascript file -->
+                    
+                    <button onclick="loadVerifiedData()" class="load-more-button"><span>&#10093;</span> </button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="p-1 mb-2 bg-success-subtle text-center fs-5 fw-bold rounded-4">Verified Authors</div>
+                <div class="content5">
+                    <!-- content displaye from the javascript file -->
+                    
+                    <button onclick="loadverifiedauthorData()" class="load-more-button"><span>&#10093;</span> </button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+<script src="../static/new_message.js"></script> <!-- Link to the javascript file -->
+<script>
+    loadUnverifiedInitialItems();
+    loadVerifiedInitialItems();
+    loadnew_messagesInitialItems();
+    loadnewauthorInitialItems();
+    loadunverifiedauthorInitialItems();
+    loadverifiedauthorInitialItems();
+
+</script>
+{% endblock%}

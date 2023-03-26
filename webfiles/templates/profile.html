@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title%}
+ Profile
+{%endblock%}
+
+{%block content%}
+<input type="hidden" name="user" id="user" value="{{user}}">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" id = "image">
+            <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
+        </div>
+        <div class="col" id = "userinfo">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title">Profile</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Name:     {{user.first_name}} {{user.second_name}}</h6> 
+                  <h6 class="card-subtitle mb-2 text-muted">Email:    {{user.creator_email}}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Verified: {{user.verified}}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Status:   {{user.status}}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Reg Date: {{user.confirmed_on.date()}}</h6>
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="row" id = "about">
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+              <h5 class="card-title">About</h5>
+              <p class="card-text">{{user.about_yourself}}</p>
+          </div>
+    </div>
+    <div class="row">
+        <div class="col" id="completedWorks">
+
+        </div>
+        <div class="col" id="verifiedWorks">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" id="UnverifiedWorks">
+
+        </div>
+        <div class="col" id="LikedContent">
+
+        </div>
+    </div>
+</div>
+{%endblock%}

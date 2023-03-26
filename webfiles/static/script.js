@@ -21,14 +21,16 @@ function loadInitialItems(){
     for(let book of books){
         if(counter < initialItems){
             out += `
-            <a class="book" href="/render/${book.id}">
-                <div class="left">
-                    <img src="/static/${book.image}">
-                </div>
-                <div class="right ">
-                    <p class="title d-block text-truncate" style="max-width: 300px;">${book.title}</p>
-                    <p class="about d-block text-truncate text-wrap" style="max-width: 700px;">${book.introduction}</p>
-                    <p class="info">Genre: ${book.genre} / publication: ${book.contentreg} </p>
+            <a class="stretched-link" href="/render/${book.id}">
+                <div class= "book ">
+                    <div class="d-flex position-relative ">
+                        <img class="bd-placeholder-img flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
+                        <div>
+                            <h5 class="mt-0">${book.title}</h5>
+                            <p>${book.introduction}</p>
+                           
+                        </div>
+                    </div>
                 </div>
             </a>
             `;
@@ -43,23 +45,25 @@ function loadInitialItems(){
 
 function loadData(){
     let books = token_data;
-    let currentDisplayedItems = document.querySelectorAll(".book").length;
+    let currentDisplayedItems = document.querySelectorAll(".d-flex").length;
     
     let out = "";
     let counter = 0;
     for(let book of books){
         if(counter >= currentDisplayedItems && counter < loadItems + currentDisplayedItems){
             out += `
-            <a class="book" href="/render/${book.id}">
-                <div class="left">
-                    <img src="/static/${book.image}">
+        <a class="stretched-link" href="/render/${book.id}">
+            <div class= "book">
+                <div class="d-flex position-relative ">
+                    <img class="bd-placeholder-img flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
+                    <div>
+                        <h5 class="mt-0">${book.title}</h5>
+                        <p>${book.introduction}</p>
+                        
+                    </div>
                 </div>
-                <div class="right">
-                    <p class="title">${book.title}</p>
-                    <p class="about">${book.introduction}</p>
-                    <p class="info">Genre: ${book.genre} / publication: ${book.contentreg} </p>
-                </div>
-            </a>
+            </div>
+        </a>
             `;
         }
         counter++;
@@ -70,7 +74,7 @@ function loadData(){
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".book").length == token_data.length){
+    if(document.querySelectorAll(".d-flex").length == token_data.length){
         loadMoreButton.style.display = "none";
     }
 
@@ -89,8 +93,3 @@ function fadeIn(div){
     }, 30);
 }
 
-// window.onscroll = function(ev) {
-//     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-//        loadData();
-//     }
-// };

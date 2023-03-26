@@ -49,7 +49,11 @@ class Creators(db.Model):
     user_name=db.Column(db.String,nullable=False, unique= True)
     first_name = db.Column(db.String(20), nullable=False )
     second_name = db.Column(db.String(20), nullable=False)
+    about_yourself= db.Column(db.Text)
     visited_on = db.Column(db.DateTime)
+    blocked =db.Column(db.Boolean, default= False)
+    verified = db.Column(db.Boolean, default= False)
+    verified_date = db.Column(db.DateTime)
     creator_email = db.Column(db.String, nullable=False, unique=True)
     creator_password = db.Column(db.String, nullable=False)
     creations = db.relationship('Content', backref='creator', lazy =True)
@@ -57,19 +61,46 @@ class Creators(db.Model):
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
     confirmed_on = db.Column(db.DateTime)
 
-    def __init__(self, user_name, first_name, second_name, creator_email,
+    def __init__(self, user_name, first_name, second_name, about,creator_email,
               creator_password,confirmed=False, confirmed_on=None, visited_on= None):
         self.id = user_name
         self.user_name = user_name
         self.first_name = first_name
         self.second_name = second_name
+        self.about_yourself = about
         self.creator_email = creator_email
         self.creator_password= bcrypt.generate_password_hash(creator_password).decode('utf-8')
         self.visited_on = visited_on
+        self.blocked= confirmed
         self.confirmed = confirmed
         self.admin = confirmed
         self.confirmed_on = confirmed_on
+        self.verified = confirmed
+        self.verified_date = confirmed_on
+        
+    @property
+    def status(self):
+        if self.blocked is not True:
+            return 'active'
+        else:
+            return 'blocked'
 
+    def author_to_dict(self):  # for build json format
+        return {
+            "id": self.id,
+            "first_name":self.first_name,
+            "second_name":self.second_name,
+            "username": self.user_name,
+            "email": self.creator_email,
+            "applicationdate": str(self.confirmed_on.date()),
+            "about": self.about_yourself,
+            "block": self.blocked
+        }
+    
+    def notification(self):
+        last= self.visited_on
+        return Content.query.filter(Content.contentreg>last).count() 
+    
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.creator_password, attempted_password)
     
@@ -99,20 +130,22 @@ class Content(db.Model):
     genre = db.Column( db.String, nullable=False)
     creator_id = db.Column( db.String,db.ForeignKey('creators.id'))
     content= db.Column(db.Text, nullable=False )
+    comment = db.relationship('Comment', backref='comments', lazy =True)
     contentreg = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     # def __repr__(self):
     #     return f'<Content "{self.introduction[:20]}...">'
-    def obj_to_dict(self):  # for build json format
+    def content_to_dict(self):  # for build json format
         return {
             "id": self.id,
             "introduction": self.introduction,
             "title": self.title,
             "image": self.image,
             "genre": self.genre,
-            #"contentreg": self.contentreg,
+            "contentreg": str(self.contentreg.date()),
         }
    
+
     @property
     def time_since_creation(self):
         t1 = datetime.now()
@@ -151,10 +184,49 @@ class Content(db.Model):
 class Comment(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text, nullable=False)
+    content_id = db.Column(db.Integer,db.ForeignKey('content.id'))
     subscriber_id= db.Column(db.String,db.ForeignKey('subscriber.id'))
-    commentreg = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    commentreg = db.Column(db.DateTime, index=True, default=datetime.now)
     
 
-
+    def comment_to_dict(self):
+        return {
+            "name": self.commenter.user_name,
+            "time": self.time_comment_creation(),
+            "comment": self.comment
+        }
     def __repr__(self):
         return f'<Comment "{self.comment[:20]}...">'
+    
+    def time_comment_creation(self):
+        t1 = datetime.now()
+        t2 = self.commentreg
+        t3= t1-t2
+        t4 = t3.total_seconds()
+        yrs = int(t4/(365*86400))
+        mnth =int(t4/(30.4167*86400))
+        days =int(t4/(86400))
+        hrs= int(t4/3600)
+        min=int(t4/60)
+        if yrs == 1:
+            return f'{yrs} year ago'
+        elif yrs > 1:
+            return str(t2.date)
+        elif mnth == 1:
+            return f'{mnth} month ago'
+        elif mnth > 1:
+            return f'{mnth} months' 
+        elif days == 1:
+            return f'{days} day ago'
+        elif days > 1:
+            return f'{days} days ago'
+        elif hrs == 1:
+            return f'{hrs} hour ago'
+        elif hrs > 1:
+            return f'{hrs} hours ago'
+        elif min == 1:
+            return f'{min} minute ago'
+        elif min > 1:
+            return f'{min} minutes ago'
+        else:
+            return 'now'

@@ -27,26 +27,45 @@ body{
 }
 
 .content{
-	max-width: 1000px;
+	max-width: auto;
 	margin: 30px auto;
 	padding: 20px;
 }
-
+.content1{
+	max-width: auto;
+	margin: 30px auto;
+	padding: 20px;
+}
+.content2{
+	max-width: auto;
+	margin: 30px auto;
+	padding: 20px;
+}
+.content3{
+	max-width: auto;
+	margin: 30px auto;
+	padding: 20px;
+}
+.content4{
+	max-width: auto;
+	margin: 30px auto;
+	padding: 20px;
+}
+.content5{
+	max-width: auto;
+	margin: 30px auto;
+	padding: 20px;
+}
 .book{
-	display: grid;
-	grid-template-columns: 1fr ;
-	grid-template-row: ;
-	grid-column-gap: 30px;
-	margin-bottom: 5px;
-	border: thin solid #d4d4d4;
+	max-width:100%;
+	
 	padding: 10px;
-	background-color: #f9f9f9;
+	background-size: auto;
+	background-color: #ffffff;
 	color: #000000;
 }
 
-.book img{
-	width:  100%;
-}
+
 
 .book .title{
 	font-size: 22px;
@@ -145,3 +164,24 @@ body{
   a:hover span {
 	transform: translate3d(-200%, 0, 0);
   }
+  
+br {
+	line-height: 50%;
+}
+.DivToScroll{   
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 0 4px 0;
+    color: #3B3C3E;
+    font-size: 12px;
+    font-weight: bold;
+    left: -1px;
+    padding: 10px 7px 5px;
+}
+
+.DivWithScroll{
+    height:200px;
+	width:100%;
+    overflow:scroll;
+    overflow-x:hidden;
+}

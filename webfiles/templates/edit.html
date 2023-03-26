@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Wavesinall: lets debate.{{content.id}}
+{% endblock%}
+
+{% block content %}
+<div class="container-fluid"></div>
+    <form method="POST" autocomplete="off"class="form-register" enctype="multipart/form-data" style="color:rgb(8, 8, 8)">
+        {{ form.hidden_tag() }}
+        {% include 'modals/editsave.html' %}
+        
+            <input type="hidden" name="contentx" id="content_idx" value="{{content.content}}">
+            <div class=" container-fluid" id="editorjs"></div>
+
+
+            <div justify-content-between >
+                <button onclick="myFunction()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Save
+                </button>
+            </div>
+        
+    </form>
+</div>
+<script src="../static/scripts/edit.js"></script>
+
+{% endblock%}

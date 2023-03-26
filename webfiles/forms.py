@@ -23,6 +23,8 @@ class CreatorregForm(FlaskForm):
                                                                             DataRequired('Second name is required')])
     username = StringField(label='User Name', validators=[Length(min=2, max=30),
                                                            DataRequired('User name is required')])
+    about_yourself = TextAreaField(label='About Yourself',validators=[
+                                                            DataRequired('A brief Introduction of yourself is required')])
     creator_email = StringField(label='Email Address', validators= [Email(),
                                                                      DataRequired('Email address is required')])
     password1 = PasswordField(label='Password', validators=[Length(min=6),
@@ -30,12 +32,12 @@ class CreatorregForm(FlaskForm):
     password2 = PasswordField(label='Confirm Password', 
                                                 validators=[EqualTo('password1',message='Passwords are not the same'),
                                                             DataRequired('Confirmation password is required')])
-    #creatorreg = DateTimeLocalField('Time to end', validators=[InputRequired()],format='%Y-%m-%dT%H:%M')
     submit = SubmitField(label='Create Account',id='username')
 
 class ContentForm(FlaskForm):
 
-    title = StringField(label='Article Title', validators=[DataRequired('Title of the article is required')])
+    title = StringField(label='Article Title', validators=[DataRequired('Title of the article is required'),
+                                                           Length(min=4,max=40,message='Brief and captivating title')])
     genre = SelectField(label='Genre of your article',validators=[DataRequired('Genre of the article is required')],
                                                             choices=[('News'),
                                                             ('Technology'), ('Travelling'),('Celebrities'),
@@ -48,6 +50,13 @@ class ContentForm(FlaskForm):
     content =HiddenField(label='Content',validators=[DataRequired('Content was not saved or is empty')],id='content')
     post = SubmitField(label='Post')
 
+class CommentForm(FlaskForm):
+    comment= TextAreaField(label='Comment',validators=[Length(max=200),DataRequired('Comment field is empty')])
+    post = SubmitField(label='Comment')
+    
+class EditSaveForm(FlaskForm):
+    content =HiddenField(label='Content',validators=[DataRequired('Content was not saved or is empty')],id='content')
+    post = SubmitField(label='Post')
 
 class LoginForm(FlaskForm):
     email_address = StringField(label='email address', validators=[DataRequired('Email address is required')])
