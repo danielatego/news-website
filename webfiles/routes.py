@@ -6,7 +6,7 @@ from webfiles.email import send_mail
 import os,json
 from flask import render_template,url_for,flash,request, redirect
 from webfiles.forms import CreatorregForm,ContentForm,ViewerregForm,LoginForm,EditSaveForm,CommentForm
-from webfiles.models import Creators, Content,Subscriber,Comment
+from webfiles.models import Creators, Content,Subscriber,Comment,Likess
 from webfiles.token import generate_confirmation_token,confirm_token
 from datetime import datetime
 from webfiles.authentication import check_admin,dict_author,dict_content,dict_comment
@@ -159,17 +159,35 @@ def upload_file():
 def render_page(id):
     form= CommentForm()
     content = Content.query.filter_by(id=id).first()
+    if current_user.is_authenticated:
+        if current_user.is_author():
+            likes= Likess.query.filter_by(liked_id= id).filter_by(aliker_id= current_user.id).first()
+        else:
+            likes= Likess.query.filter_by(liked_id= id).filter_by(liker_id= current_user.id).first()
+        if likes:
+            print(likes.alikerr)
+            print(likes.likerr)
     comments = Comment.query.filter_by(content_id = id).order_by(desc('commentreg')).all()
     comments_dict = dict_comment(comments)
     comment_json = json.dumps(comments_dict)
     if request.method == "POST":
-        newComment = Comment(comment=form.comment.data,
-                             content_id = request.form.get('article_id'),
-                             subscriber_id = current_user.id)
-        db.session.add(newComment)
-        db.session.commit()
+        if current_user.is_subscriber():
+            newComment = Comment(comment=form.comment.data,
+                                content_id = request.form.get('article_id'),
+                                subscriber_id = current_user.id)
+            db.session.add(newComment)
+            db.session.commit()
+        elif current_user.is_author():
+            newComment = Comment(comment=form.comment.data,
+                                content_id = request.form.get('article_id'),
+                                author_id = current_user.id)
+            db.session.add(newComment)
+            db.session.commit()
         return redirect(url_for('render_page',id = id))
-    return render_template('render.html',content=content, form=form,comment=comment_json )
+    if current_user.is_authenticated:
+        return render_template('render.html',content=content, form=form,comment=comment_json,likes=likes )
+    else:
+        return render_template('render.html',content=content, form=form,comment=comment_json)
 
 @app.route('/edit/<id>',methods=['POST','GET'])
 def edit_page(id):
@@ -192,6 +210,29 @@ def genre_page(genre):
     json_object=json.dumps(content_list_dict)
     return render_template('genre.html' ,collection =json_object)
 
+@app.route('/like/<token1>/<token2>')
+@login_required
+def like_page(token1,token2):
+    if token1=='like':
+        if current_user.is_subscriber():
+            like= Likess(like_state=True,
+                        liked_id = token2,
+                        liker_id=current_user.id)
+            db.session.add(like)
+            db.session.commit()
+        elif current_user.is_author():
+            like= Likess(like_state=True,
+                        liked_id = token2,
+                        aliker_id=current_user.id)
+            db.session.add(like)
+            db.session.commit()           
+        return redirect(url_for('render_page',id = token2))
+    elif token1=='unlike':
+        unlike = Likess.query.filter_by(like_id = token2).first()
+        db.session.delete(unlike)
+        db.session.commit()
+        return redirect(url_for('render_page',id = unlike.liked_id))
+    
 @app.route('/admin/<token1>/<token2>')
 @login_required
 @check_admin

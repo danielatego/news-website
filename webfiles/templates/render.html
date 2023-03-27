@@ -11,7 +11,7 @@ Wavesinall: lets debate.{{content.id}}
     <div id="editorjs"></div>
     <div class="container ">
         <div class="col-md-6 mx-auto">
-            <div class="p-1 mb-2 bg-info-subtle text-center fs-5 fw-bold rounded-4">Comments</div>
+            <div class="p-1 mb-2 bg-info-subtle text-center text-primary-emphasis mx-auto fs-5 rounded-4" style="width: 60%;">Comments</div>
             <div class ="DivToScroll DivWithScroll  mx-auto">
 
                 <button onclick="loadcommentData()" class="load-more-button"><span>&#10093;</span> </button>
@@ -23,11 +23,26 @@ Wavesinall: lets debate.{{content.id}}
             <form method="POST" autocomplete="off" class="form-register" style="color:rgb(8, 8, 8)">
                 {{ form.hidden_tag() }}
                 <div class="form-floating mx-auto container-sm text-center text-mute ps-0 pe-0" >
-                    {{ form.comment(class="form-control", placeholder="Leave a comment here", id="floatingTextarea") }}
-                    <label for="floatingTextarea">Comments</label>
-                    <input id="article_id" name="article_id" type="hidden" value="{{content.id}}">
-                    <br>
-                    {{ form.post(class="btn btn-lg btn-block btn-primary position-absolute start-50 translate-middle-x ")}}
+                    
+                    {% if current_user.is_authenticated and (current_user.is_subscriber or current_user.is_author) %}
+                        {{ form.comment(class="form-control", placeholder="Leave a comment here", id="floatingTextarea") }}
+                        <label for="floatingTextarea">Comments</label>
+                        <input id="article_id" name="article_id" type="hidden" value="{{content.id}}">
+                        <br>
+                        {% if likes.likerr == current_user or likes.alikerr == current_user %}
+                            <a href = "/like/unlike/{{likes.like_id}}"type="button" class="btn btn-outline-primary">
+                                <img src="/static/icons/liked.svg" alt="" width="20" height="20">
+                            </a>
+                        {% else %}
+                            <a href = "/like/like/{{content.id}}"type="button" class="btn btn-sm btn-outline-primary">
+                                <img src="/static/icons/like.svg" alt="" width="20" height="20">
+                            </a>
+                        {% endif %}
+                    
+                        {{ form.post(class="btn btn-lg btn-sm btn-block btn-primary")}}
+                    {% else %}
+                    <div class="p-1 mb-2 bg-secondary-subtle text-muted text-center fs-6 fw-light mx-auto rounded-4" style="width: 60%;">Login to Comment</div>
+                    {% endif %}
                     
                 </div>
             </form>

@@ -15,6 +15,7 @@ class Subscriber(db.Model):
     user_email = db.Column(db.String, nullable=False, unique=True)
     password_hash = db.Column(db.String, nullable= False)
     comments = db.relationship('Comment', backref='commenter', lazy=True)
+    liker = db.relationship('Likess', backref='likerr', lazy=True)
     viewerreg= db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __init__(self, user_name, user_email,
@@ -28,8 +29,19 @@ class Subscriber(db.Model):
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
     
+    
     def is_authenticated(self):
         return True
+    
+    def is_author(self):
+        return False
+    
+    def is_subscriber(self):
+        authentication = Subscriber.query.filter_by(id=self.id)
+        if authentication:
+            return True
+        else:
+            return False
 
     def is_active(self):
         return True
@@ -41,7 +53,7 @@ class Subscriber(db.Model):
         return self.user_name
     
     def __repr__(self):
-        return f'<Subscriber "{self.UserName}">'
+        return f'<Subscriber "{self.user_name}">'
 
 class Creators(db.Model):
     id = db.Column(db.String, primary_key=True)
@@ -56,6 +68,8 @@ class Creators(db.Model):
     verified_date = db.Column(db.DateTime)
     creator_email = db.Column(db.String, nullable=False, unique=True)
     creator_password = db.Column(db.String, nullable=False)
+    like_content = db.relationship('Likess', backref='alikerr', lazy=True)
+    reply_comments = db.relationship('Comment',backref='acommenter', lazy=True)
     creations = db.relationship('Content', backref='creator', lazy =True)
     creatorreg = db.Column(db.DateTime,index=True, default=datetime.utcnow)
     confirmed = db.Column(db.Boolean, nullable=False, default=False)
@@ -84,7 +98,19 @@ class Creators(db.Model):
             return 'active'
         else:
             return 'blocked'
-
+        
+    def is_subscriber(self):
+        return False
+    
+    def is_author(self):
+        authentication = Creators.query.filter_by(id=self.id)
+        if authentication:
+            print('riba1')
+            return True
+        else:
+            print('riba')
+            return False
+        
     def author_to_dict(self):  # for build json format
         return {
             "id": self.id,
@@ -106,7 +132,7 @@ class Creators(db.Model):
     
     def is_authenticated(self):
         return True
-
+    
     def is_active(self):
         return True
 
@@ -131,6 +157,7 @@ class Content(db.Model):
     creator_id = db.Column( db.String,db.ForeignKey('creators.id'))
     content= db.Column(db.Text, nullable=False )
     comment = db.relationship('Comment', backref='comments', lazy =True)
+    liked = db.relationship('Likess', backref='likedd', lazy=True)
     contentreg = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     # def __repr__(self):
@@ -185,16 +212,26 @@ class Comment(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text, nullable=False)
     content_id = db.Column(db.Integer,db.ForeignKey('content.id'))
+    author_id = db.Column(db.String,db.ForeignKey('creators.id'))
     subscriber_id= db.Column(db.String,db.ForeignKey('subscriber.id'))
     commentreg = db.Column(db.DateTime, index=True, default=datetime.now)
     
 
     def comment_to_dict(self):
-        return {
-            "name": self.commenter.user_name,
-            "time": self.time_comment_creation(),
-            "comment": self.comment
-        }
+        user= Creators.query.filter(Creators.id==self.author_id).first()
+        if not user:
+            return {
+                "name": self.commenter.user_name,
+                "time": self.time_comment_creation(),
+                "comment": self.comment
+            }
+        else:
+            return {
+                "name": self.acommenter.user_name,
+                "time": self.time_comment_creation(),
+                "comment": self.comment
+            }
+
     def __repr__(self):
         return f'<Comment "{self.comment[:20]}...">'
     
@@ -230,3 +267,10 @@ class Comment(db.Model):
             return f'{min} minutes ago'
         else:
             return 'now'
+        
+class Likess(db.Model):
+    like_id=db.Column(db.Integer,primary_key= True)
+    like_state= db.Column(db.Boolean, default=False)
+    liked_id = db.Column(db.Integer, db.ForeignKey('content.id'),nullable=False)
+    liker_id = db.Column(db.String, db.ForeignKey('subscriber.id'))
+    aliker_id= db.Column(db.String, db.ForeignKey('creators.id'))
