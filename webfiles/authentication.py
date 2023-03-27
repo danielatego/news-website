@@ -2,7 +2,7 @@ from functools import wraps
 
 from flask import flash, redirect, url_for
 from flask_login import current_user
-
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 def check_admin(func):
     @wraps(func)
@@ -25,4 +25,7 @@ def dict_author(objlist):
 def dict_comment(objlist):
         result2 = [item.comment_to_dict() for item in objlist]
         return result2
-        
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

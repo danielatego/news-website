@@ -9,10 +9,10 @@ from webfiles.forms import CreatorregForm,ContentForm,ViewerregForm,LoginForm,Ed
 from webfiles.models import Creators, Content,Subscriber,Comment,Likess
 from webfiles.token import generate_confirmation_token,confirm_token
 from datetime import datetime
-from webfiles.authentication import check_admin,dict_author,dict_content,dict_comment
+from webfiles.authentication import check_admin,dict_author,dict_content,dict_comment,allowed_file
 from flask_login import login_required ,login_user,logout_user,current_user
 from werkzeug.utils import secure_filename
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
 
 @app.route('/')
 def home_page():
@@ -109,10 +109,6 @@ def createcontent_page():
         for err_msg in form.errors.values():
             flash(f'There was and error in creating content{err_msg}',category='danger')
     return render_template('contentcreation.html' ,form = form)
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
