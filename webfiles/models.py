@@ -215,7 +215,20 @@ class Comment(db.Model):
     author_id = db.Column(db.String,db.ForeignKey('creators.id'))
     subscriber_id= db.Column(db.String,db.ForeignKey('subscriber.id'))
     commentreg = db.Column(db.DateTime, index=True, default=datetime.now)
+    creator_co =db.Column(db.String)
     
+    def __init__(self,comment,content_id, author_id,subscriber_id):
+        self.comment=comment
+        self.content_id=content_id
+        self.author_id=author_id
+        self.subscriber_id=subscriber_id
+        self.creator_co = self.creator_con()
+
+    def creator_con(self):
+        creator= Content.query.filter(Content.id==self.content_id).first()
+        return creator.creator_id
+        
+        
 
     def comment_to_dict(self):
         user= Creators.query.filter(Creators.id==self.author_id).first()
@@ -223,13 +236,15 @@ class Comment(db.Model):
             return {
                 "name": self.commenter.user_name,
                 "time": self.time_comment_creation(),
-                "comment": self.comment
+                "comment": self.comment,
+                "content":self.content_id
             }
         else:
             return {
                 "name": self.acommenter.user_name,
                 "time": self.time_comment_creation(),
-                "comment": self.comment
+                "comment": self.comment,
+                "content":self.content_id
             }
 
     def __repr__(self):
@@ -274,3 +289,4 @@ class Likess(db.Model):
     liked_id = db.Column(db.Integer, db.ForeignKey('content.id'),nullable=False)
     liker_id = db.Column(db.String, db.ForeignKey('subscriber.id'))
     aliker_id= db.Column(db.String, db.ForeignKey('creators.id'))
+    likereg=db.Column(db.DateTime, index=True, default=datetime.now)

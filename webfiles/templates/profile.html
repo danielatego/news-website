@@ -4,7 +4,7 @@
 {%endblock%}
 
 {%block content%}
-<input type="hidden" name="user" id="user" value="{{user}}">
+<input type="hidden" name="comments" id="comments" value="{{comments}}">
 <div class="container-md">
     <div class="row">
         <div class="col mx-auto" id = "image">
@@ -45,9 +45,9 @@
         </div>
         <div class="col-md-6 mx-auto">
             <div class="p-1 mb-2 bg-secondary-subtle text-center text-primary-emphasis mx-auto fs-5 rounded-4" style="width: 60%;">Comments</div>
-            <div class ="DivToScroll DivWithScroll  mx-auto">
+            <div class ="comments DivToScroll DivWithScroll  mx-auto">
 
-                <button onclick="loadcommentData()" class="load-more-button"><span>&#10093;</span> </button>
+                <button onclick="loadcommentsData()" class="load-more-button"><span>&#10093;</span> </button>
 
             </div>
             <br>
@@ -74,4 +74,8 @@
         </div>
     </div>
 </div>
+<script src="../static/scripts/profileComments.js"></script>
+<script>
+    loadcommentsInitialItems();
+</script>
 {%endblock%}

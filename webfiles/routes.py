@@ -84,7 +84,12 @@ def login_page():
 @login_required
 def profile_page(id):
     user = Creators.query.filter_by(id = id).first()
-    return render_template('profile.html', user= user)
+    comments = Comment.query.filter(Comment.creator_co == id).order_by(desc('commentreg')).all()
+    comment_dict= dict_comment(comments)
+    comment_json=json.dumps(comment_dict)
+    liked = Content.query.join(Likess, Content.id==Likess.liked_id).filter(Likess.aliker_id==id).order_by(desc(Likess.likereg)).all()
+    print(liked)
+    return render_template('profile.html', user= user,comments=comment_json)
 
 @app.route('/createcontent', methods = ['POST', 'GET'])
 @login_required
@@ -170,13 +175,15 @@ def render_page(id):
         if current_user.is_subscriber():
             newComment = Comment(comment=form.comment.data,
                                 content_id = request.form.get('article_id'),
-                                subscriber_id = current_user.id)
+                                subscriber_id = current_user.id,
+                                author_id = None)
             db.session.add(newComment)
             db.session.commit()
         elif current_user.is_author():
             newComment = Comment(comment=form.comment.data,
                                 content_id = request.form.get('article_id'),
-                                author_id = current_user.id)
+                                author_id = current_user.id,
+                                subscriber_id = None)
             db.session.add(newComment)
             db.session.commit()
         return redirect(url_for('render_page',id = id))
