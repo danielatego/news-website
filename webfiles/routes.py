@@ -88,8 +88,13 @@ def profile_page(id):
     comment_dict= dict_comment(comments)
     comment_json=json.dumps(comment_dict)
     liked = Content.query.join(Likess, Content.id==Likess.liked_id).filter(Likess.aliker_id==id).order_by(desc(Likess.likereg)).all()
-    print(liked)
-    return render_template('profile.html', user= user,comments=comment_json)
+    liked_dict= dict_content(liked)
+    liked_json=json.dumps(liked_dict)
+    created=Content.query.join(Creators, Content.creator_id==Creators.id).filter(Creators.id==id).all()
+    print(created)
+    created_dict= dict_content(created)
+    created_json=json.dumps(created_dict)
+    return render_template('profile.html', user= user,comments=comment_json,liked=liked_json,created=created_json)
 
 @app.route('/createcontent', methods = ['POST', 'GET'])
 @login_required
@@ -165,9 +170,6 @@ def render_page(id):
             likes= Likess.query.filter_by(liked_id= id).filter_by(aliker_id= current_user.id).first()
         else:
             likes= Likess.query.filter_by(liked_id= id).filter_by(liker_id= current_user.id).first()
-        if likes:
-            print(likes.alikerr)
-            print(likes.likerr)
     comments = Comment.query.filter_by(content_id = id).order_by(desc('commentreg')).all()
     comments_dict = dict_comment(comments)
     comment_json = json.dumps(comments_dict)
@@ -223,16 +225,22 @@ def like_page(token1,token2):
                         liker_id=current_user.id)
             db.session.add(like)
             db.session.commit()
+            
         elif current_user.is_author():
             like= Likess(like_state=True,
                         liked_id = token2,
                         aliker_id=current_user.id)
             db.session.add(like)
-            db.session.commit()           
+            db.session.commit()  
+        contentLike= Content.query.filter(Content.id==token2).first()
+        contentLike.likes += 1
+        db.session.commit()
         return redirect(url_for('render_page',id = token2))
     elif token1=='unlike':
         unlike = Likess.query.filter_by(like_id = token2).first()
         db.session.delete(unlike)
+        contentLike= Content.query.filter(Content.id==unlike.liked_id).first()
+        contentLike.likes -= 1
         db.session.commit()
         return redirect(url_for('render_page',id = unlike.liked_id))
     

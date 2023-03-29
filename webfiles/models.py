@@ -147,8 +147,8 @@ class Creators(db.Model):
 
 class Content(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    views = db.Column(db.Integer)
-    likes = db.Column(db.Integer)
+    views = db.Column(db.Integer,default=0)
+    likes = db.Column(db.Integer,default=0)
     introduction =db.Column(db.String, nullable=False)
     title =db.Column(db.String, nullable=False)
     image=db.Column(db.String, nullable=False)
@@ -170,9 +170,33 @@ class Content(db.Model):
             "image": self.image,
             "genre": self.genre,
             "contentreg": str(self.contentreg.date()),
+            "views": self.viewsEdit(),
+            "likes": self.likesEdit(),
+            "vefified":self.authorized
         }
-   
 
+    def viewsEdit(self):
+        t = self.views
+        if t < 1000:
+            return t
+        elif t >= 1000 and t < 1000000:
+            t=int(t/1000)
+            return f'{t}k'
+        elif t >= 1000000:
+            t=int(t/1000000)
+            return f'{t}m'
+        
+    def likesEdit(self):
+        t = self.likes
+        if t < 1000:
+            return t
+        elif t >= 1000 and t < 1000000:
+            t=int(t/1000)
+            return f'{t}k'
+        elif t >= 1000000:
+            t=int(t/1000000)
+            return f'{t}m'
+        
     @property
     def time_since_creation(self):
         t1 = datetime.now()

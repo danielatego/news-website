@@ -17,7 +17,7 @@ function loadcommentsInitialItems(){
         
         if(counter < comments_initialItems){
             out += `
-                <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
+                <div class= "co p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
                         <div class="row">
                             <div class="col">
                                 <p class=" fs-6 text-capitalize mb-0">${book.name}</p>
@@ -44,7 +44,7 @@ function loadcommentsInitialItems(){
 
 function loadcommentsData(){
     let books = comments;
-    let currentDisplayedItems = document.querySelectorAll(".p-2").length;
+    let currentDisplayedItems = document.querySelectorAll(".co").length;
     
     let out = "";
     let counter = 0;
@@ -52,7 +52,7 @@ function loadcommentsData(){
         
         if(counter >= currentDisplayedItems && counter < comments_loadItems + currentDisplayedItems){
             out += `
-            <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
+            <div class= "co p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
                 <div class="row">
                     <div class="col">
                         <p class=" fs-6 text-capitalize mb-0">${book.name}</p>
@@ -77,7 +77,7 @@ function loadcommentsData(){
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".p-2").length == comments.length){
+    if(document.querySelectorAll(".co").length == comments.length){
         comments_loadMoreButton.style.display = "none";
     }
 

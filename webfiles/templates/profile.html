@@ -5,6 +5,8 @@
 
 {%block content%}
 <input type="hidden" name="comments" id="comments" value="{{comments}}">
+<input type="hidden" name="liked" id="liked" value="{{liked}}">
+<input type="hidden" name="created" id="created" value="{{created}}">
 <div class="container-md">
     <div class="row">
         <div class="col mx-auto" id = "image">
@@ -56,18 +58,18 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="p-1 mb-2 bg-secondary-subtle text-center text-primary-emphasis mx-auto fs-5 rounded-4" style="width: 60%;">Liked Articles</div>
-            <div class ="DivToScroll DivWithScroll  mx-auto">
+            <div class ="likes DivToScroll DivWithScroll  mx-auto">
 
-                <button onclick="loadcommentData()" class="load-more-button"><span>&#10093;</span> </button>
+                <button onclick="loadlikedData()" class="load-more-button"><span>&#10093;</span> </button>
 
             </div>
             <br>
         </div>
         <div class="col-md-6 mx-auto">
             <div class="p-1 mb-2 bg-secondary-subtle text-center text-primary-emphasis mx-auto fs-5 rounded-4" style="width: 60%;">Published Articles</div>
-            <div class ="DivToScroll DivWithScroll  mx-auto">
+            <div class ="published DivToScroll DivWithScroll  mx-auto">
 
-                <button onclick="loadcommentData()" class="load-more-button"><span>&#10093;</span> </button>
+                <button onclick="loadcreatedData()" class="load-more-button"><span>&#10093;</span> </button>
 
             </div>
             <br>
@@ -75,7 +77,11 @@
     </div>
 </div>
 <script src="../static/scripts/profileComments.js"></script>
+<script src="../static/scripts/profileLIkes.js"></script>
+<script src="../static/scripts/profilePublished.js"></script>
 <script>
     loadcommentsInitialItems();
+    loadlikedInitialItems();
+    loadcreatedInitialItems();
 </script>
 {%endblock%}
