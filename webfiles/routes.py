@@ -6,7 +6,7 @@ from webfiles.email import send_mail
 import os,json
 from flask import render_template,url_for,flash,request, redirect
 from webfiles.forms import CreatorregForm,ContentForm,ViewerregForm,LoginForm,EditSaveForm,CommentForm
-from webfiles.models import Creators, Content,Subscriber,Comment,Likess
+from webfiles.models import Creators, Content,Subscriber,Comment,Likess,Viewed_pages
 from webfiles.token import generate_confirmation_token,confirm_token
 from datetime import datetime
 from webfiles.authentication import check_admin,dict_author,dict_content,dict_comment,allowed_file
@@ -164,15 +164,6 @@ def upload_file():
 @app.route('/render/<id>', methods=['GET', 'POST'])
 def render_page(id):
     form= CommentForm()
-    content = Content.query.filter_by(id=id).first()
-    if current_user.is_authenticated:
-        if current_user.is_author():
-            likes= Likess.query.filter_by(liked_id= id).filter_by(aliker_id= current_user.id).first()
-        else:
-            likes= Likess.query.filter_by(liked_id= id).filter_by(liker_id= current_user.id).first()
-    comments = Comment.query.filter_by(content_id = id).order_by(desc('commentreg')).all()
-    comments_dict = dict_comment(comments)
-    comment_json = json.dumps(comments_dict)
     if request.method == "POST":
         if current_user.is_subscriber():
             newComment = Comment(comment=form.comment.data,
@@ -189,7 +180,22 @@ def render_page(id):
             db.session.add(newComment)
             db.session.commit()
         return redirect(url_for('render_page',id = id))
+    content = Content.query.filter_by(id=id).first()
+    comments = Comment.query.filter_by(content_id = id).order_by(desc('commentreg')).all()
+    comments_dict = dict_comment(comments)
+    comment_json = json.dumps(comments_dict)
     if current_user.is_authenticated:
+        view = Viewed_pages.query.filter(Viewed_pages.viewer_id==current_user.id).filter(Viewed_pages.Viewed_page==id).first()
+        if not view:
+                newViewer=Viewed_pages( viewer_id = current_user.id,
+                                       Viewed_page= id)
+                content.views +=1
+                db.session.add(newViewer)
+                db.session.commit()
+        if current_user.is_author():
+            likes= Likess.query.filter_by(liked_id= id).filter_by(aliker_id= current_user.id).first()
+        else:
+            likes= Likess.query.filter_by(liked_id= id).filter_by(liker_id= current_user.id).first()
         return render_template('render.html',content=content, form=form,comment=comment_json,likes=likes )
     else:
         return render_template('render.html',content=content, form=form,comment=comment_json)

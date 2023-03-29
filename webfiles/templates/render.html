@@ -29,17 +29,30 @@ Wavesinall: lets debate.{{content.id}}
                         <label for="floatingTextarea">Comments</label>
                         <input id="article_id" name="article_id" type="hidden" value="{{content.id}}">
                         <br>
-                        {% if likes.likerr == current_user or likes.alikerr == current_user %}
-                            <a href = "/like/unlike/{{likes.like_id}}"type="button" class="btn btn-outline-primary">
-                                <img src="/static/icons/liked.svg" alt="" width="20" height="20">
-                            </a>
-                        {% else %}
-                            <a href = "/like/like/{{content.id}}"type="button" class="btn btn-sm btn-outline-primary">
-                                <img src="/static/icons/like.svg" alt="" width="20" height="20">
-                            </a>
-                        {% endif %}
+                        <div class=" position-relative text-center me-auto row">
+                            <div class="col-4 position-absolute top-50 start-0 translate-middle-y">
+                                {% if likes.likerr == current_user or likes.alikerr == current_user %}
+                                    <a href = "/like/unlike/{{likes.like_id}}"type="button" class=" btn btn-sm btn-outline-primary">
+                                        <img src="/static/icons/liked.svg" alt="" width="16" height="16">{{content.likes}}
+                                    </a>
+                                {% else %}
+                                    <a href = "/like/like/{{content.id}}"type="button" class=" btn btn-sm btn-outline-primary">
+                                        <img src="/static/icons/like.svg" alt="" width="16" height="16">{{content.likes}}
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-4 position-absolute top-50 start-50 translate-middle">
+                                {{ form.post(class="btn btn-lg btn-sm btn-block btn-primary ")}}
+                            </div>
+                            <div class="col-4 position-absolute top-50 end-0 translate-middle-y">
+                                <button type="button" class="btn btn-sm btn-outline-primary" disabled>
+                                    <img src="/static/icons/view.svg" alt="" width="16" height="16"><span class="badge rounded-pill text-bg-secondary">{{content.views}}</span>
+                                </button>
+                            </div>
+                        </div>
+
                     
-                        {{ form.post(class="btn btn-lg btn-sm btn-block btn-primary")}}
+                        
                     {% else %}
                     <div class="p-1 mb-2 bg-secondary-subtle text-muted text-center fs-6 fw-light mx-auto rounded-4" style="width: 60%;">Login to Comment</div>
                     {% endif %}
@@ -60,3 +73,8 @@ Wavesinall: lets debate.{{content.id}}
 </script>
 
 {% endblock%}
+<div class="grid text-center">
+    <div class="g-col-4">.g-col-4</div>
+    <div class="g-col-4">.g-col-4</div>
+    <div class="g-col-4">.g-col-4</div>
+</div>

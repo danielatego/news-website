@@ -172,7 +172,7 @@ class Content(db.Model):
             "contentreg": str(self.contentreg.date()),
             "views": self.viewsEdit(),
             "likes": self.likesEdit(),
-            "vefified":self.authorized
+            "verified": self.authorized
         }
 
     def viewsEdit(self):
@@ -314,3 +314,8 @@ class Likess(db.Model):
     liker_id = db.Column(db.String, db.ForeignKey('subscriber.id'))
     aliker_id= db.Column(db.String, db.ForeignKey('creators.id'))
     likereg=db.Column(db.DateTime, index=True, default=datetime.now)
+
+class Viewed_pages(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    viewer_id = db.Column(db.String, nullable=False)
+    Viewed_page = db.Column(db.Integer, nullable=False)
