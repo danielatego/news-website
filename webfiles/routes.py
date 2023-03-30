@@ -1,23 +1,31 @@
 from webfiles import app,db
-from sqlalchemy import desc
+from sqlalchemy import desc,func
 from flask_mail import Message
 from webfiles import app, mail
 from webfiles.email import send_mail
 import os,json
 from flask import render_template,url_for,flash,request, redirect
-from webfiles.forms import CreatorregForm,ContentForm,ViewerregForm,LoginForm,EditSaveForm,CommentForm
-from webfiles.models import Creators, Content,Subscriber,Comment,Likess,Viewed_pages
+from webfiles.forms import CreatorregForm,\
+    ContentForm,ViewerregForm,LoginForm,EditSaveForm,CommentForm
+from webfiles.models import Creators, Content,\
+    Subscriber,Comment,Likess,Viewed_pages
 from webfiles.token import generate_confirmation_token,confirm_token
-from datetime import datetime
-from webfiles.authentication import check_admin,dict_author,dict_content,dict_comment,allowed_file
+from datetime import datetime,timedelta
+from webfiles.authentication import check_admin,\
+    dict_author,dict_content,dict_comment,allowed_file
 from flask_login import login_required ,login_user,logout_user,current_user
 from werkzeug.utils import secure_filename
 
 
 @app.route('/')
 def home_page():
-    contents = Content.query.order_by(desc('contentreg')).limit(10)
-    return render_template ('homepage.html',contents = contents)
+    Previous_Date = datetime.today() - timedelta(days=10) 
+    latest = Content.query.order_by(desc('contentreg')).limit(10)
+    popular=Content.query.join(Likess, Content.id==Likess.liked_id).\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).\
+        filter(Likess.likereg>Previous_Date).all()
+    
+    return render_template ('homepage.html',contents = latest)
 
 @app.route('/creatorregistration', methods=['POST','GET'])
 def creatorregister_page():
