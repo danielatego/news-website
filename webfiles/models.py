@@ -62,7 +62,7 @@ class Creators(db.Model):
     first_name = db.Column(db.String(20), nullable=False )
     second_name = db.Column(db.String(20), nullable=False)
     about_yourself= db.Column(db.Text)
-    visited_on = db.Column(db.DateTime)
+    visited_on = db.Column(db.DateTime, default=datetime.now)
     blocked =db.Column(db.Boolean, default= False)
     verified = db.Column(db.Boolean, default= False)
     verified_date = db.Column(db.DateTime)
@@ -124,8 +124,10 @@ class Creators(db.Model):
         }
     
     def notification(self):
-        last= self.visited_on
-        return Content.query.filter(Content.contentreg>last).count() 
+        return Content.query.filter(Content.contentreg>self.visited_on).count() 
+    
+    def commentNotification(self):
+        return Comment.query.filter(Comment.commentreg>self.visited_on).filter(Comment.creator_co == self.id).count()
     
     def check_password_correction(self, attempted_password):
         return bcrypt.check_password_hash(self.creator_password, attempted_password)

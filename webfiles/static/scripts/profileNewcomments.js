@@ -1,4 +1,4 @@
-let newcomment = document.getElementById("newcomment").value;
+let newcomment = document.getElementById("newcomments").value;
 console.log(newcomment);
 newcomment=JSON.parse(newcomment);
 console.log(newcomment);
@@ -17,17 +17,20 @@ function loadnewcommentInitialItems(){
         
         if(counter < newcomment_initialItems){
             out += `
-                <div class= "nc p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
-                            <div class="row">
-                                <div class="col">
-                                    <p class=" fs-6 text-capitalize mb-0">${book.name}</p>
-                                </div>
-                                <div class="col">
-                                    <p class="text-muted fw-lighter text-center mb-0" style="padding-bottom: 3px;padding-top: 3px;"> ${book.time}</p>
-                                </div>
-                            </div>
-                            <p class="mb-1 fw-lighter"> ${book.comment} </p>
+            <div class= "co p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
+                <div class="row">
+                    <div class="col">
+                        <p class=" fs-6 text-capitalize mb-0">${book.name}</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-muted fw-lighter text-center mb-0" style="padding-bottom: 3px;padding-top: 3px;"> ${book.time}</p>
+                    </div>
+                    <p class="mb-1 fw-lighter"> ${book.comment} </p>
                 </div>
+                <div class="d-grid gap-1 col-2 mx-auto text-center " >
+                    <a href="/render/${book.content}" class="btn btn-sm btn-block btn-primary p-0 rounded-4" role="button">reply</a> 
+                </div>
+            </div>
             `;
         }
         
@@ -49,7 +52,7 @@ function loadnewcommentData(){
         
         if(counter >= currentDisplayedItems && counter < newcomment_loadItems + currentDisplayedItems){
             out += `
-            <div class= " nc p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+            <div class= "co p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
                 <div class="row">
                     <div class="col">
                         <p class=" fs-6 text-capitalize mb-0">${book.name}</p>
@@ -57,8 +60,11 @@ function loadnewcommentData(){
                     <div class="col">
                         <p class="text-muted fw-lighter text-center mb-0" style="padding-bottom: 3px;padding-top: 3px;"> ${book.time}</p>
                     </div>
+                    <p class="mb-1 fw-lighter"> ${book.comment} </p>
                 </div>
-                <p class="mb-1 fw-lighter"> ${book.comment} </p>
+                <div class="d-grid gap-1 col-2 mx-auto text-center " >
+                    <a href="/render/${book.content}" class="btn btn-sm btn-block btn-primary p-0 rounded-4" role="button">reply</a> 
+                </div>
             </div>
             `;
         }

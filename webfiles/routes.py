@@ -85,10 +85,7 @@ def login_page():
 def profile_page(id):
 
     user = Creators.query.filter_by(id = id).first()
-    user.visited_on= datetime.now()
-    db.session.add(user)
-    db.session.commit()
-    newcomments= Comment.query.filter(Comment.commentreg>current_user.visited_on).all()
+    newcomments= Comment.query.filter(Comment.commentreg>current_user.visited_on).filter(Comment.creator_co == id).order_by(desc('commentreg')).all()
     newcommentsDict = dict_comment(newcomments)
     newCommentJson= json.dumps(newcommentsDict)
     comments = Comment.query.filter(Comment.creator_co == id).order_by(desc('commentreg')).all()
@@ -98,7 +95,9 @@ def profile_page(id):
     liked_dict= dict_content(liked)
     liked_json=json.dumps(liked_dict)
     created=Content.query.join(Creators, Content.creator_id==Creators.id).filter(Creators.id==id).all()
-    print(created)
+    user.visited_on= datetime.now()
+    db.session.add(user)
+    db.session.commit()
     created_dict= dict_content(created)
     created_json=json.dumps(created_dict)
     return render_template('profile.html', user= user,comments=comment_json,liked=liked_json,created=created_json, newcomments=newCommentJson)
@@ -281,7 +280,7 @@ def admin_functions(token1,token2):
         content.authorized = False
         db.session.add(content)
         db.session.commit()
-        flash(f'The article has been verified successfully', category='success')
+        flash(f'The article has been unverified successfully', category='success')
         return redirect(url_for('message_page'))
     elif token1=='viewAuthor':
         return redirect(url_for('profile_page',id=token2))
@@ -314,23 +313,22 @@ def admin_functions(token1,token2):
 @check_admin
 def message_page():
     last_visited = current_user.visited_on
-    newmessage = Content.query.filter(Content.contentreg>last_visited).order_by(desc('contentreg'))
+    newmessage = Content.query.filter(Content.contentreg>last_visited).order_by(desc('contentreg')).all()
     newmessage_dict = dict_content(newmessage)
     newmessage_json = json.dumps(newmessage_dict)
-    unverified = Content.query.filter(Content.authorized == False).order_by(desc('contentreg'))
+    unverified = Content.query.filter(Content.authorized == False).order_by(desc('contentreg')).all()
     unverified_dict = dict_content(unverified)
     unverified_json = json.dumps(unverified_dict)
-    verified = Content.query.filter(Content.authorized == True).order_by(desc('contentreg'))
+    verified = Content.query.filter(Content.authorized == True).order_by(desc('contentreg')).all()
     verified_dict = dict_content(verified)
     verified_json = json.dumps(verified_dict)
-    newauthor = Creators.query.filter(Creators.creatorreg>last_visited).order_by(desc('creatorreg'))
+    newauthor = Creators.query.filter(Creators.creatorreg>last_visited).order_by(desc('creatorreg')).all()
     newauthor_dict = dict_author(newauthor)
-    print(newauthor_dict)
     newauthor_json = json.dumps(newauthor_dict)
-    unverifiedauthor = Creators.query.filter(Creators.verified==''or Creators.verified==False).order_by(desc('creatorreg'))
+    unverifiedauthor = Creators.query.filter(Creators.verified==False).order_by(desc('creatorreg')).all()
     unverifiedauthor_dict = dict_author(unverifiedauthor)
     unverifiedauthor_json = json.dumps(unverifiedauthor_dict)
-    verifiedauthor = Creators.query.filter(Creators.verified==True).order_by(desc('creatorreg'))
+    verifiedauthor = Creators.query.filter(Creators.verified==True).order_by(desc('creatorreg')).all()
     verifiedauthor_dict = dict_author(verifiedauthor)
     verifiedauthor_json = json.dumps(verifiedauthor_dict)
 

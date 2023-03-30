@@ -46,17 +46,33 @@
                 <a class="nav-link " aria-current="page" href="{{url_for('message_page')}}">
                     Messages
                     <span class=" badge rounded-pill bg-danger" 
-                    style="visibility: {% if new_messages %}  visible {% else %} hidden  {% endif %};">
+                      style="visibility: {% if new_messages %}  visible {% else %} hidden  {% endif %};">
                       {{new_messages}}
                     </span>
                 </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="{{url_for('logout_page')}}">
+                  Logout
+                </a>
+              </li>
+              {% elif current_user.is_authenticated and current_user.is_author()%}
+              <li class="nav-item">
+                {% set new_comments = current_user.commentNotification() %}
+                <a class="nav-link " aria-current="page" href="{{url_for('profile_page',id=current_user.id)}}">
+                  Profile
+                  <span class=" badge rounded-pill bg-danger"
+                    style="visibility: {% if new_comments %}  visible {% else %} hidden  {% endif %};">
+                    {{new_comments}}
+                  </span>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link " aria-current="page" href="{{url_for('logout_page')}}">Logout</a>
               </li>
-              {% elif current_user.is_authenticated %}
+              {% elif current_user.is_authenticated and current_user.is_subscriber()%}
               <li class="nav-item">
-                <a class="nav-link " aria-current="page" href="{{url_for('profile_page',id=current_user.id)}}">Profile</a>
+                <a class="nav-link " aria-current="page" href="#">Welcome {{current_user.user_name}}</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link " aria-current="page" href="{{url_for('logout_page')}}">Logout</a>

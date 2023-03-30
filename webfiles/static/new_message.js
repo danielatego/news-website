@@ -1,7 +1,5 @@
 let new_messages = document.getElementById("newmessage").value;
-console.log(new_messages);
 new_messages=JSON.parse(new_messages);
-console.log(new_messages);
 
 let new_messages_container = document.querySelector(".content");
 let new_messages_loadMoreButton = document.querySelector(".content button");
@@ -16,7 +14,7 @@ function loadnew_messagesInitialItems(){
     for(let book of books){
         if(counter < new_messages_initialItems){
             out += `
-            <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+            <div class= "nmesa p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                 <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                     <div>
@@ -70,14 +68,14 @@ function loadnew_messagesInitialItems(){
 
 function loadnew_messagesData(){
     let books = new_messages;
-    let currentDisplayedItems = document.querySelectorAll(".p-2").length;
+    let currentDisplayedItems = document.querySelectorAll(".nmesa").length;
     
     let out = "";
     let counter = 0;
     for(let book of books){
         if(counter >= currentDisplayedItems && counter < new_messages_loadItems + currentDisplayedItems){
             out += `
-            <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+            <div class= "nmesa p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                 <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                     <div>
@@ -129,16 +127,14 @@ function loadnew_messagesData(){
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".p-2").length == new_messages.length){
+    if(document.querySelectorAll(".nmesa").length == new_messages.length){
         new_messages_loadMoreButton.style.display = "none";
     }
 
     fadeIn(div);
 }
 let unverified = document.getElementById("unverified").value;
-console.log(unverified);
 unverified=JSON.parse(unverified);
-console.log(unverified);
 
 let unverified_container = document.querySelector(".content1");
 let unverified_loadMoreButton = document.querySelector(".content1 button");
@@ -154,7 +150,7 @@ function loadUnverifiedInitialItems(){
         if(counter < unverified_initialItems){
             var a=book.id
             out += `
-            <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+            <div class= "unveri p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                 <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                     <div>
@@ -208,7 +204,7 @@ function loadUnverifiedInitialItems(){
 
 function loadUnverifiedData(){
     let books = unverified;
-    let currentDisplayedItems = document.querySelectorAll(".p-2").length;
+    let currentDisplayedItems = document.querySelectorAll(".unveri").length;
     
     let out = "";
     let counter = 0;
@@ -217,7 +213,7 @@ function loadUnverifiedData(){
             var a= book.id
             out += `
             
-            <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+            <div class= "unveri p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                     <div class="d-flex position-relative ">
                         <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
@@ -270,16 +266,14 @@ function loadUnverifiedData(){
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".p-2").length == unverified.length){
+    if(document.querySelectorAll(".unveri").length == unverified.length){
         unverified_loadMoreButton.style.display = "none";
     }
 
     fadeIn(div);
 }
 let Verified = document.getElementById("Verified").value;
-console.log(Verified);
 Verified=JSON.parse(Verified);
-console.log(Verified);
 
 let Verified_container = document.querySelector(".content2");
 let Verified_loadMoreButton = document.querySelector(".content2 button");
@@ -294,7 +288,7 @@ function loadVerifiedInitialItems(){
     for(let book of books){
         if(counter < Verified_initialItems){
             out += `
-            <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+            <div class= "veri p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                 <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                     <div>
@@ -348,14 +342,14 @@ function loadVerifiedInitialItems(){
 
 function loadVerifiedData(){
     let books = Verified;
-    let currentDisplayedItems = document.querySelectorAll(".p-2").length;
-    
+    let currentDisplayedItems = document.querySelectorAll(".veri").length;
+    console.log(currentDisplayedItems)
     let out = "";
     let counter = 0;
     for(let book of books){
         if(counter >= currentDisplayedItems && counter < Verified_loadItems + currentDisplayedItems){
             out += `
-            <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+            <div class= " veri p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                 <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                     <div>
@@ -407,16 +401,14 @@ function loadVerifiedData(){
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".p-2").length == Verified.length){
+    if(document.querySelectorAll(".veri").length == Verified.length){
         Verified_loadMoreButton.style.display = "none";
     }
 
     fadeIn(div);
 }
 let newauthor = document.getElementById("newauthor").value;
-console.log(newauthor);
 newauthor=JSON.parse(newauthor);
-console.log(newauthor);
 
 let newauthor_container = document.querySelector(".content3");
 let newauthor_loadMoreButton = document.querySelector(".content3 button");
@@ -431,7 +423,7 @@ function loadnewauthorInitialItems(){
     for(let book of books){
         if(counter < newauthor_initialItems){
             out += `
-                <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                <div class= "nau p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                     <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
@@ -464,14 +456,14 @@ function loadnewauthorInitialItems(){
 
 function loadnewauthorData(){
     let books = newauthor;
-    let currentDisplayedItems = document.querySelectorAll(".p-2").length;
+    let currentDisplayedItems = document.querySelectorAll(".nau").length;
     
     let out = "";
     let counter = 0;
     for(let book of books){
             if(counter >= currentDisplayedItems && counter < newauthor_loadItems + currentDisplayedItems){
                 out += `
-                <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                <div class= " nau p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                     <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
@@ -498,21 +490,19 @@ function loadnewauthorData(){
         counter++;
     }
 
-    let div = document.createElement("div");
+    let div = document.createElement("nau");
     newauthor_container.insertBefore(div, newauthor_loadMoreButton);
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".p-2").length == newauthor.length){
+    if(document.querySelectorAll(".nau").length == newauthor.length){
         newauthor_loadMoreButton.style.display = "none";
     }
 
     fadeIn(div);
 }
 let unverifiedauthor = document.getElementById("unverifiedauthor").value;
-console.log(unverifiedauthor);
 unverifiedauthor=JSON.parse(unverifiedauthor);
-console.log(unverifiedauthor);
 
 let unverifiedauthor_container = document.querySelector(".content4");
 let unverifiedauthor_loadMoreButton = document.querySelector(".content4 button");
@@ -528,7 +518,7 @@ function loadunverifiedauthorInitialItems(){
         if(book.block==false){
         if(counter < unverifiedauthor_initialItems){
             out += `
-                <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                <div class= "unva p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                     <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
@@ -555,7 +545,7 @@ function loadunverifiedauthorInitialItems(){
 
         if(counter < unverifiedauthor_initialItems){
             out += `
-                <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                <div class= " unva p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                     <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
@@ -589,7 +579,7 @@ function loadunverifiedauthorInitialItems(){
 
 function loadunverifiedauthorData(){
     let books = unverifiedauthor;
-    let currentDisplayedItems = document.querySelectorAll(".p-2").length;
+    let currentDisplayedItems = document.querySelectorAll(".unva").length;
     
     let out = "";
     let counter = 0;
@@ -597,7 +587,7 @@ function loadunverifiedauthorData(){
         if(book.block==false){
         if(counter >= currentDisplayedItems && counter < unverifiedauthor_loadItems + currentDisplayedItems){
             out += `
-            <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+            <div class= " unva p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                 <div class="d-flex position-relative ">
                 <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                     <div>
@@ -623,7 +613,7 @@ function loadunverifiedauthorData(){
         else{
             if(counter >= currentDisplayedItems && counter < unverifiedauthor_loadItems + currentDisplayedItems){
                 out += `
-                <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                <div class= "unva p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                     <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
@@ -656,16 +646,14 @@ function loadunverifiedauthorData(){
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".p-2").length == unverifiedauthor.length){
+    if(document.querySelectorAll(".unva").length == unverifiedauthor.length){
         unverifiedauthor_loadMoreButton.style.display = "none";
     }
 
     fadeIn(div);
 }
 let verifiedauthor = document.getElementById("verifiedauthor").value;
-console.log(verifiedauthor);
 verifiedauthor=JSON.parse(verifiedauthor);
-console.log(verifiedauthor);
 
 let verifiedauthor_container = document.querySelector(".content5");
 let verifiedauthor_loadMoreButton = document.querySelector(".content5 button");
@@ -681,7 +669,7 @@ function loadverifiedauthorInitialItems(){
         if(book.block==false){
             if(counter < verifiedauthor_initialItems){
                 out += `
-                    <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                    <div class= "vea p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                         <div class="d-flex position-relative ">
                         <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                             <div>
@@ -705,7 +693,7 @@ function loadverifiedauthorInitialItems(){
     
             if(counter < verifiedauthor_initialItems){
                 out += `
-                    <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                    <div class= "vea p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                         <div class="d-flex position-relative ">
                         <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                             <div>
@@ -736,7 +724,7 @@ function loadverifiedauthorInitialItems(){
 
 function loadverifiedauthorData(){
     let books = verifiedauthor;
-    let currentDisplayedItems = document.querySelectorAll(".p-2").length;
+    let currentDisplayedItems = document.querySelectorAll(".vea").length;
     
     let out = "";
     let counter = 0;
@@ -744,7 +732,7 @@ function loadverifiedauthorData(){
         if(book.block==false){
             if(counter >= currentDisplayedItems && counter < verifiedauthor_loadItems + currentDisplayedItems){
                 out += `
-                <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                <div class= "vea p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                     <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
@@ -770,7 +758,7 @@ function loadverifiedauthorData(){
             else{
                 if(counter >= currentDisplayedItems && counter < verifiedauthor_loadItems + currentDisplayedItems){
                     out += `
-                    <div class= "p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
+                    <div class= "vea p-2 mb-2 bg-secondary-subtle text-emphasis-dark rounded-4 row-gap-3">
                         <div class="d-flex position-relative ">
                         <img class="bd-placeholder-img rounded-4 flex-shrink-0 me-3" width="144" height="96" src="/static/person.svg" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                             <div>
@@ -802,7 +790,7 @@ function loadverifiedauthorData(){
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".p-2").length == verifiedauthor.length){
+    if(document.querySelectorAll(".vea").length == verifiedauthor.length){
         verifiedauthor_loadMoreButton.style.display = "none";
     }
 
