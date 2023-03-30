@@ -4,6 +4,7 @@
 {%endblock%}
 
 {%block content%}
+<input type="hidden" name="newcomments" id="newcomments" value="{{newcomments}}">
 <input type="hidden" name="comments" id="comments" value="{{comments}}">
 <input type="hidden" name="liked" id="liked" value="{{liked}}">
 <input type="hidden" name="created" id="created" value="{{created}}">
@@ -38,11 +39,11 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="p-1 mb-2 bg-secondary-subtle text-center text-primary-emphasis mx-auto fs-5 rounded-4" style="width: 60%;">New Comments</div>
-            <div class ="DivToScroll DivWithScroll  mx-auto">
+                <div class ="newcomments DivToScroll DivWithScroll  mx-auto">
 
-                <button onclick="loadcommentData()" class="load-more-button"><span>&#10093;</span> </button>
+                    <button onclick="loadnewcommentData()" class="load-more-button"><span>&#10093;</span> </button>
 
-            </div>
+                </div>
             <br>
         </div>
         <div class="col-md-6 mx-auto">
@@ -83,5 +84,6 @@
     loadcommentsInitialItems();
     loadlikedInitialItems();
     loadcreatedInitialItems();
+    loadnewcommentInitialItems();
 </script>
 {%endblock%}

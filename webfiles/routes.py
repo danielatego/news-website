@@ -83,7 +83,14 @@ def login_page():
 @app.route('/profile/<id>')
 @login_required
 def profile_page(id):
+
     user = Creators.query.filter_by(id = id).first()
+    user.visited_on= datetime.now()
+    db.session.add(user)
+    db.session.commit()
+    newcomments= Comment.query.filter(Comment.commentreg>current_user.visited_on).all()
+    newcommentsDict = dict_comment(newcomments)
+    newCommentJson= json.dumps(newcommentsDict)
     comments = Comment.query.filter(Comment.creator_co == id).order_by(desc('commentreg')).all()
     comment_dict= dict_comment(comments)
     comment_json=json.dumps(comment_dict)
@@ -94,7 +101,7 @@ def profile_page(id):
     print(created)
     created_dict= dict_content(created)
     created_json=json.dumps(created_dict)
-    return render_template('profile.html', user= user,comments=comment_json,liked=liked_json,created=created_json)
+    return render_template('profile.html', user= user,comments=comment_json,liked=liked_json,created=created_json, newcomments=newCommentJson)
 
 @app.route('/createcontent', methods = ['POST', 'GET'])
 @login_required

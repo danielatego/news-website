@@ -7,10 +7,14 @@ Wavesinall: lets debate.{{content.id}}
 {% block content %}
 <input type="hidden" name="contentx" id="content_idx" value="{{content.content}}">
 <input type="hidden" name="comment" id="comment" value="{{comment}}">
-<div class=" container-fluid "> 
+<div class=" container">
+    <div class="col-md-7 text-muted mb-0 mx-auto">
+        <p class="mb-0 text-capitalize"> By: {{content.creator.first_name}} {{content.creator.second_name}}</p>
+        <p class="mb-0"> Updated:  {{content.time_since_creation}} </p>
+    </div>
     <div id="editorjs"></div>
     <div class="container ">
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-7 mx-auto">
             <div class="p-1 mb-2 bg-info-subtle text-center text-primary-emphasis mx-auto fs-5 rounded-4" style="width: 60%;">Comments</div>
             <div class ="DivToScroll DivWithScroll  mx-auto">
 
@@ -19,7 +23,7 @@ Wavesinall: lets debate.{{content.id}}
             </div>
             <br>
         </div>
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-7 mx-auto">
             <form method="POST" autocomplete="off" class="form-register" style="color:rgb(8, 8, 8)">
                 {{ form.hidden_tag() }}
                 <div class="form-floating mx-auto container-sm text-center text-mute ps-0 pe-0" >

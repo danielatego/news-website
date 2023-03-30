@@ -265,7 +265,7 @@ class Comment(db.Model):
             }
         else:
             return {
-                "name": self.acommenter.user_name,
+                "name": self.acommenter.first_name,
                 "time": self.time_comment_creation(),
                 "comment": self.comment,
                 "content":self.content_id
