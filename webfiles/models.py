@@ -321,3 +321,4 @@ class Viewed_pages(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     viewer_id = db.Column(db.String, nullable=False)
     Viewed_page = db.Column(db.Integer, nullable=False)
+    viewreg=db.Column(db.DateTime, default=datetime.now)
