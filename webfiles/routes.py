@@ -19,12 +19,16 @@ from werkzeug.utils import secure_filename
 
 @app.route('/')
 def home_page():
-    Previous_Date = datetime.today() - timedelta(days=10) 
+    tenDaysAgoDate = datetime.today() - timedelta(days=10)
+    threeDaysAgoDate = datetime.today() - timedelta(days=3) 
     latest = Content.query.order_by(desc('contentreg')).limit(10)
     popular=Content.query.join(Likess, Content.id==Likess.liked_id).\
         group_by(Content.id).order_by(desc(func.count(Content.id))).\
-        filter(Likess.likereg>Previous_Date).all()
-    
+        filter(Likess.likereg>tenDaysAgoDate).all()
+    trending= Content.query.join(Viewed_pages, Content.id==Viewed_pages.Viewed_page).\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).\
+        filter(Viewed_pages.viewreg>threeDaysAgoDate).all()
+    print(trending)
     return render_template ('homepage.html',contents = latest)
 
 @app.route('/creatorregistration', methods=['POST','GET'])
