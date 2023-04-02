@@ -21,18 +21,18 @@ function loadInitialItems(){
     for(let book of books){
         if(counter < initialItems){
             out += `
-            <a class="stretched-link" href="/render/${book.id}">
+            
                 <div class= "book ">
                     <div class="d-flex position-relative ">
                         <img class="bd-placeholder-img flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
                             <h5 class="mt-0">${book.title}</h5>
                             <p>${book.introduction}</p>
-                           
+                            <a class="stretched-link" href="/render/${book.id}"> </a>
                         </div>
                     </div>
                 </div>
-            </a>
+           
             `;
         }
         counter++;
@@ -52,18 +52,18 @@ function loadData(){
     for(let book of books){
         if(counter >= currentDisplayedItems && counter < loadItems + currentDisplayedItems){
             out += `
-        <a class="stretched-link" href="/render/${book.id}">
+        
             <div class= "book">
                 <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                     <div>
                         <h5 class="mt-0">${book.title}</h5>
                         <p>${book.introduction}</p>
-                        
+                        <a class="stretched-link" href="/render/${book.id}"></a>
                     </div>
                 </div>
             </div>
-        </a>
+        
             `;
         }
         counter++;

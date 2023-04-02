@@ -5,81 +5,105 @@ Wavesinall: lets debate.
 {% endblock%}
 
 {% block content %}
-<ul class="nav justify-content-center">
-  <li class="nav-item">
-    <a class="nav-link"  href="{{url_for('genre_page',genre = 'News')}}">News</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{url_for('genre_page',genre = 'Celebrities')}}">Celebrities</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{url_for('genre_page',genre = 'Beauty and Lifestyle')}}">Beauty and Lifestyle</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{url_for('genre_page',genre = 'Mental Health')}}">Mental Health</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{url_for('genre_page',genre = 'Food and Beverage')}}">Food and Beverage</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{{url_for('genre_page',genre = 'Flowers')}}">Flowers</a>
-  </li>
-</ul>
-<br>
+<div class="container-md ">
+  <div class="d-none d-lg-block">
+    <ul class="nav justify-content-between ">
+      <li class="nav-item">
+        <a class="nav-link"  href="{{url_for('genre_page',genre = 'News')}}">News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('genre_page',genre = 'Celebrities')}}">Celebrities</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('genre_page',genre = 'Beauty and Lifestyle')}}">Beauty and Lifestyle</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('genre_page',genre = 'Mental Health')}}">Mental Health</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('genre_page',genre = 'Food and Beverage')}}">Food and Beverage</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('genre_page',genre = 'Flowers')}}">Flowers</a>
+      </li>
+    </ul>
+    <br>
+  </div>
+  <br>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Dropdown button
+    </button>
+    <ul class="dropdown-menu dropdown-menu-dark">
+      <li><a class="dropdown-item active" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>
+  </div>
 
-<br>
-<div class="row row-cols-1 row-cols-md-4 g-4">
-  {%for content in contents%}
-  
-  <div class="col">
-    <div class="card h-100">
-      <img src="{{url_for('static', filename = content.image)}}" class="object-fit-fill border rounded card-img-top" loading="lazy"alt="...">
-      <div class="card-body">
-        <h5 class="card-title">{{content.title}}</h5>
-        <p class="card-text">{{content.introduction}}</p>
-        <a href="{{ url_for('render_page',id = content.id)}}" class="btn btn-primary">Read Article</a>
+  <div class="mx-auto row g-md-5">
+    <div class="col-md-4">
+      <div class=" d-flex ">
+        <div class="p-2 justify-content-center mx-auto mb-2 text-bg-success rounded-4">
+          <img src="/static/icons/added.svg "alt="" width="20" height="20">  Latest articles</div>
       </div>
-      <div class="card-footer">
-        <small class="text-muted">Last updated {{content.time_since_creation}} </small>
+      {%for lates in latest%}
+          <div class="card text-bg-light rounded-4 shadow">
+            <img src="{{url_for('static', filename = lates.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
+            <div class="card-body p-0">
+              <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{lates.title}}</strong></h5>
+              <p class="ps-3 textarea pe-3 card-text fst-normal mb-0 lh-sm overflow-hidden" style="font-size: 16.5px;">{{lates.introduction}}</p>
+              <a href="{{ url_for('render_page',id = lates.id)}}" class="stretched-link"></a>
+              <p class="text-muted text-end pe-3 mb-1 fw-light"><small>{{lates.time_since_creation}} </small></p>
+            </div>
+          </div>
+          <br>
+      {%endfor%}
+    </div>
+    <div class="col-md-4">
+      <div class=" d-flex ">
+        <div class="p-2 justify-content-center mx-auto mb-2 text-bg-danger rounded-4">
+          <img src="/static/icons/fire.svg "alt="" width="20" height="20">  Trending articles</div>
       </div>
+      {%for trend in trending%}
+          <div class="card text-bg-light rounded-4 shadow">
+            <img src="{{url_for('static', filename = trend.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
+            <div class="card-body p-0">
+              <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{trend.title}}</strong></h5>
+              <p class="ps-3 textarea pe-3 card-text fst-normal mb-0 lh-sm overflow-hidden" style="font-size: 17px;">{{trend.introduction}}</p>
+              <a href="{{ url_for('render_page',id = trend.id)}}" class="stretched-link"></a>
+              <p class="text-muted text-end pe-3 mb-1 fw-light"><small>{{trend.time_since_creation}} </small></p>
+            </div>
+          </div>
+          <br>
+      {%endfor%}
+    </div>
+    <div class="col-md-4">
+      <div class=" d-flex ">
+        <div class="p-2 justify-content-center mx-auto mb-2 text-bg-primary rounded-4">
+          <img src="/static/icons/hearts.svg "alt="" width="20" height="20">  Popular articles</div>
+      </div>
+      {%for popula in popular%}
+          <div class="card text-bg-light rounded-4 shadow">
+            <img src="{{url_for('static', filename = popula.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
+            <div class="card-body p-0">
+              <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{popula.title}}</strong></h5>
+              <p class="ps-3 textarea pe-3 card-text fst-normal mb-0 lh-sm overflow-hidden" style="font-size: 17px;">{{popula.introduction}}</p>
+              <a href="{{ url_for('render_page',id = popula.id)}}" class="stretched-link"></a>
+              <p class="text-muted text-end pe-3 mb-1 fw-light"><small>{{popula.time_since_creation}} </small></p>
+            </div>
+          </div>
+          <br>
+      {%endfor%}
     </div>
   </div>
-  {%endfor%}
-  
-  
+</div>
 {% endblock%}
-<!--
-<div class="container text-center">
-  <div class="row align-items-start">
-    {% for content in contents %}
-      <div class="col" style="width: 18rem;">
-        <img src="{{url_for('static', filename = content.image)}}"  class="card-img-top" alt="...">
-        <div class="card-body">
-        <h5 class="card-title">{{content.title}}</h5>
-        <p class="card-text">{{content.introduction}}</p>
-        <a href="{{ url_for('render_page',id = content.id)}}" class="btn btn-primary">Read Article</a>
-      </div>
-      <br>
-    {% endfor %}
-  </div>
-</div>
-
-<div class="container px-4 text-center">
-  <div class="row gx-5">
-    {% for content in contents %}
-    <div class="col">
-    <img src="{{url_for('static', filename = content.image)}}"  width="100" height="100" alt="">
-    <div class="fw-bold p-3">{{content.title}}</div>
-    <p class="text-wrap">{{content.introduction}}</p>
-    <a href="{{ url_for('render_page',id = content.id)}}" class="btn btn-primary">Read Article</a>
-    </div>
-    {% endfor %}
-  </div>
-</div>
--->class="object-fit-cover border rounded"
