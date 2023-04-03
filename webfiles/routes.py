@@ -255,10 +255,10 @@ def edit_page(id):
 
 @app.route('/genre/<genre>')
 def genre_page(genre):
-    collection = Content.query.filter_by(genre=genre).order_by(desc('contentreg'))
+    collection = Content.query.filter_by(genre=genre).order_by(desc('contentreg')).all()
     content_list_dict = dict_content(collection)
     json_object=json.dumps(content_list_dict)
-    return render_template('genre.html' ,collection =json_object)
+    return render_template('genre.html', collection=json_object, genre=genre)
 
 @app.route('/like/<token1>/<token2>')
 @login_required
