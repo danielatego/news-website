@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block content %}
-    <body class="text-center">
-        <div class="container">
+    <div class="d-flex justify-content-center text-center">
+        <div class="container-md mx-auto">
             <form method="POST" autocomplete="off"class="form-signin" style="color:rgb(8, 8, 8)">
                 {{ form.hidden_tag() }}
                 <img src= "{{url_for('static', filename = 'logo.svg')}}"width="100" height="100" alt="" class="mb-4">
@@ -34,5 +34,5 @@
                 </div>
             </form>
         </div>
-    </body>
+    </div>
 {% endblock %}

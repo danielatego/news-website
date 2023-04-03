@@ -35,28 +35,32 @@ Wavesinall: lets debate.
     </ul>
     <br>
   </div>
-  <br>
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Dropdown button
-    </button>
-    <ul class="dropdown-menu dropdown-menu-dark">
-      <li><a class="dropdown-item active" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
+  <div class="d-flex d-md-none">
+    <div class="dropdown">
+      <button class="btn btn-sm btn-dark rounded dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Genres
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark">
+        <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'News')}}">News</a></li>
+        <li><a class="dropdown-item" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a></li>
+        <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a></li>
+        <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Celebrities')}}">Celebrities</a></li>
+        <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Beauty and Lifestyle')}}">Beauty and Lifestyle</a></li>
+        <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Mental Health')}}">Mental Health</a></li>
+        <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Food and Beverage')}}">Food and Beverage</a></li>
+        <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Flowers')}}">Flowers</a></li>
+      </ul>
+    </div>
   </div>
-
+  <br>
   <div class="mx-auto row g-md-5">
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm">
       <div class=" d-flex ">
         <div class="p-2 justify-content-center mx-auto mb-2 text-bg-success rounded-4">
           <img src="/static/icons/added.svg "alt="" width="20" height="20">  Latest articles</div>
       </div>
       {%for lates in latest%}
-          <div class="card text-bg-light rounded-4 shadow">
+          <div class="card text-bg-light bg-white rounded-4 shadow">
             <img src="{{url_for('static', filename = lates.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
             <div class="card-body p-0">
               <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{lates.title}}</strong></h5>
@@ -68,13 +72,13 @@ Wavesinall: lets debate.
           <br>
       {%endfor%}
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm">
       <div class=" d-flex ">
         <div class="p-2 justify-content-center mx-auto mb-2 text-bg-danger rounded-4">
           <img src="/static/icons/fire.svg "alt="" width="20" height="20">  Trending articles</div>
       </div>
       {%for trend in trending%}
-          <div class="card text-bg-light rounded-4 shadow">
+          <div class="card text-bg-light bg-white rounded-4 shadow">
             <img src="{{url_for('static', filename = trend.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
             <div class="card-body p-0">
               <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{trend.title}}</strong></h5>
@@ -86,13 +90,13 @@ Wavesinall: lets debate.
           <br>
       {%endfor%}
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm ">
       <div class=" d-flex ">
         <div class="p-2 justify-content-center mx-auto mb-2 text-bg-primary rounded-4">
           <img src="/static/icons/hearts.svg "alt="" width="20" height="20">  Popular articles</div>
       </div>
       {%for popula in popular%}
-          <div class="card text-bg-light rounded-4 shadow">
+          <div class="card text-bg-light bg-white rounded-4 shadow">
             <img src="{{url_for('static', filename = popula.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
             <div class="card-body p-0">
               <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{popula.title}}</strong></h5>
@@ -105,5 +109,44 @@ Wavesinall: lets debate.
       {%endfor%}
     </div>
   </div>
+  <br>
+  <div class="my-3 p-3 bg-white bg-body rounded shadow">
+    <h6 class="border-bottom pb-2 mb-0">Suggestions</h6>
+    <div class="d-flex text-body-secondary pt-3">
+      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+        <div class="d-flex justify-content-between">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <div class="d-flex text-body-secondary pt-3">
+      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+        <div class="d-flex justify-content-between">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <div class="d-flex text-body-secondary pt-3">
+      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+      <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+        <div class="d-flex justify-content-between">
+          <strong class="text-gray-dark">Full Name</strong>
+          <a href="#">Follow</a>
+        </div>
+        <span class="d-block">@username</span>
+      </div>
+    </div>
+    <small class="d-block text-end mt-3">
+      <a href="#">All suggestions</a>
+    </small>
+  </div>
+  
+
 </div>
 {% endblock%}

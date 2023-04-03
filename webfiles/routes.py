@@ -22,13 +22,32 @@ def home_page():
     tenDaysAgoDate = datetime.today() - timedelta(days=10)
     threeDaysAgoDate = datetime.today() - timedelta(days=3) 
     latest = Content.query.order_by(desc('contentreg')).limit(5)
+    news=Content.query.join(Likess.likedd).filter(Content.genre=='News').\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+    Technology=Content.query.join(Likess.likedd).filter(Content.genre=='Technology').\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+    Travelling=Content.query.join(Likess.likedd).filter(Content.genre=='Travelling').\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+    Celebrities=Content.query.join(Likess.likedd).filter(Content.genre=='Celebrities').\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+    BeautyandLifestyle=Content.query.join(Likess.likedd).filter(Content.genre=='Beauty and Lifestyle').\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+    MentalHealth=Content.query.join(Likess.likedd).filter(Content.genre=='Mental Health').\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+    FoodandBeverages=Content.query.join(Likess.likedd).filter(Content.genre=='Food and Beverages').\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+    Flowers=Content.query.join(Likess.likedd).filter(Content.genre=='Flowers').\
+        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
     popular=Content.query.join(Likess, Content.id==Likess.liked_id).\
         group_by(Content.id).order_by(desc(func.count(Content.id))).\
         filter(Likess.likereg>tenDaysAgoDate).limit(5)
     trending= Content.query.join(Viewed_pages, Content.id==Viewed_pages.Viewed_page).\
         group_by(Content.id).order_by(desc(func.count(Content.id))).\
         filter(Viewed_pages.viewreg>threeDaysAgoDate).limit(5)
-    return render_template ('homepage.html',latest = latest,trending=trending, popular=popular)
+    return render_template ('homepage.html',\
+        latest=latest,trending=trending,popular=popular,BeautyandLifestyle=BeautyandLifestyle,news=news,\
+        Technology=Technology,Travelling=Travelling,MentalHealth=MentalHealth,FoodandBeverages=FoodandBeverages,\
+            Flowers=Flowers,Celebrities=Celebrities)
 
 @app.route('/creatorregistration', methods=['POST','GET'])
 def creatorregister_page():
@@ -96,13 +115,15 @@ def login_page():
 def profile_page(id):
 
     user = Creators.query.filter_by(id = id).first()
-    newcomments= Comment.query.filter(Comment.commentreg>current_user.visited_on).filter(Comment.creator_co == id).order_by(desc('commentreg')).all()
+    newcomments= Comment.query.filter(Comment.commentreg>current_user.visited_on)\
+        .filter(Comment.creator_co == id).order_by(desc('commentreg')).all()
     newcommentsDict = dict_comment(newcomments)
     newCommentJson= json.dumps(newcommentsDict)
     comments = Comment.query.filter(Comment.creator_co == id).order_by(desc('commentreg')).all()
     comment_dict= dict_comment(comments)
     comment_json=json.dumps(comment_dict)
-    liked = Content.query.join(Likess, Content.id==Likess.liked_id).filter(Likess.aliker_id==id).order_by(desc(Likess.likereg)).all()
+    liked = Content.query.join(Likess, Content.id==Likess.liked_id).\
+        filter(Likess.aliker_id==id).order_by(desc(Likess.likereg)).all()
     liked_dict= dict_content(liked)
     liked_json=json.dumps(liked_dict)
     created=Content.query.join(Creators, Content.creator_id==Creators.id).filter(Creators.id==id).all()
@@ -111,7 +132,8 @@ def profile_page(id):
     db.session.commit()
     created_dict= dict_content(created)
     created_json=json.dumps(created_dict)
-    return render_template('profile.html', user= user,comments=comment_json,liked=liked_json,created=created_json, newcomments=newCommentJson)
+    return render_template('profile.html', user= user,comments=comment_json,\
+                           liked=liked_json,created=created_json, newcomments=newCommentJson)
 
 @app.route('/createcontent', methods = ['POST', 'GET'])
 @login_required
