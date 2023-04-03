@@ -1,8 +1,8 @@
 let token_data = document.getElementById("genre").value;
 token_data=JSON.parse(token_data);
 
-let container = document.querySelector(".content");
-let loadMoreButton = document.querySelector(".content button");
+let container = document.querySelector(".contentw");
+let loadMoreButton = document.querySelector(".contentw button");
 
 let initialItems = 3;
 let loadItems = 3;

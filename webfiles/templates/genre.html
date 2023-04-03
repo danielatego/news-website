@@ -5,69 +5,68 @@ Wavesinall: lets debate.
 {% endblock%}
 
 {% block content %}
-<div class="container-md">
-  <div class="d-none d-lg-block">
-    <ul class="nav justify-content-between ">
-      <li class="nav-item">
-        <a class="nav-link"  href="{{url_for('genre_page',genre = 'News')}}">News</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('genre_page',genre = 'Celebrities')}}">Celebrities</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('genre_page',genre = 'Beauty and Lifestyle')}}">Beauty and Lifestyle</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('genre_page',genre = 'Mental Health')}}">Mental Health</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('genre_page',genre = 'Food and Beverage')}}">Food and Beverage</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('genre_page',genre = 'Flowers')}}">Flowers</a>
-      </li>
-    </ul>
-    <br>
-  </div>
-  <div class="d-flex flex-row justify-content-between">
-    <h1 class="bd-title mb-0 text-center" id="content">{{genre}}</h1>
-    <div class="d-flex d-md-none">
-      <div class="dropdown">
-        <button class="btn btn-sm btn-dark rounded dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Genres
-        </button>
-        <ul class="dropdown-menu dropdown-menu-dark">
-          <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'News')}}">News</a></li>
-          <li><a class="dropdown-item" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a></li>
-          <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a></li>
-          <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Celebrities')}}">Celebrities</a></li>
-          <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Beauty and Lifestyle')}}">Beauty and Lifestyle</a></li>
-          <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Mental Health')}}">Mental Health</a></li>
-          <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Food and Beverage')}}">Food and Beverage</a></li>
-          <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Flowers')}}">Flowers</a></li>
-        </ul>
+  <div class="container-md">
+    <div class="d-none d-lg-block">
+      <ul class="nav justify-content-between ">
+        <li class="nav-item">
+          <a class="nav-link"  href="{{url_for('genre_page',genre = 'News')}}">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('genre_page',genre = 'Celebrities')}}">Celebrities</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('genre_page',genre = 'Beauty and Lifestyle')}}">Beauty and Lifestyle</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('genre_page',genre = 'Mental Health')}}">Mental Health</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('genre_page',genre = 'Food and Beverage')}}">Food and Beverage</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('genre_page',genre = 'Flowers')}}">Flowers</a>
+        </li>
+      </ul>
+      <br>
+    </div>
+    <div class="d-flex flex-row justify-content-between">
+      <h1 class="bd-title mb-0 text-center" id="content">{{genre}}</h1>
+      <div class="d-flex d-md-none">
+        <div class="dropdown">
+          <button class="btn btn-sm btn-dark rounded dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Genres
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'News')}}">News</a></li>
+            <li><a class="dropdown-item" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a></li>
+            <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a></li>
+            <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Celebrities')}}">Celebrities</a></li>
+            <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Beauty and Lifestyle')}}">Beauty and Lifestyle</a></li>
+            <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Mental Health')}}">Mental Health</a></li>
+            <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Food and Beverage')}}">Food and Beverage</a></li>
+            <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Flowers')}}">Flowers</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
 
-  <input type="hidden" name="contentx" id="genre" value="{{collection}}">
-    
-  <div class="content ">
-      <!-- content displaye from the javascript file -->
+    <input type="hidden" name="contentx" id="genre" value="{{collection}}">
       
-      <button onclick="loadData()" class="load-more-button"><span>&#10093;</span> </button>
+    <div class="contentw ">
+        <!-- content displaye from the javascript file -->
+        
+        <button onclick="loadData()" class="load-more-button"><span>&#10093;</span> </button>
+    </div>
+    <script src="../static/script.js"></script> <!-- Link to the javascript file -->
+    <script>
+        loadInitialItems();
+    </script>
   </div>
-
-</div>
-<script src="../static/script.js"></script> <!-- Link to the javascript file -->
-<script>
-    loadInitialItems();
-</script>
 
 {% endblock%}
