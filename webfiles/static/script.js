@@ -4,9 +4,7 @@
 // 	localStorage.setItem("books", JSON.stringify(books));
 // });
 let token_data = document.getElementById("genre").value;
-console.log(token_data);
 token_data=JSON.parse(token_data);
-console.log(token_data);
 
 let container = document.querySelector(".content");
 let loadMoreButton = document.querySelector(".content button");
@@ -22,7 +20,7 @@ function loadInitialItems(){
         if(counter < initialItems){
             out += `
             
-                <div class= "book ">
+                <div class= "curren book ">
                     <div class="d-flex position-relative ">
                         <img class="bd-placeholder-img flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                         <div>
@@ -45,15 +43,15 @@ function loadInitialItems(){
 
 function loadData(){
     let books = token_data;
-    let currentDisplayedItems = document.querySelectorAll(".d-flex").length;
-    
+    let currentDisplayedItems = document.querySelectorAll(".curren").length;
+    console.log(currentDisplayedItems)
     let out = "";
     let counter = 0;
     for(let book of books){
         if(counter >= currentDisplayedItems && counter < loadItems + currentDisplayedItems){
             out += `
         
-            <div class= "book">
+            <div class= "curren book">
                 <div class="d-flex position-relative ">
                     <img class="bd-placeholder-img flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
                     <div>
@@ -74,7 +72,7 @@ function loadData(){
     div.innerHTML = out;	
     div.style.opacity = 0;
 
-    if(document.querySelectorAll(".d-flex").length == token_data.length){
+    if(document.querySelectorAll(".curren").length == token_data.length){
         loadMoreButton.style.display = "none";
     }
 
