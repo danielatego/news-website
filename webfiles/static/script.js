@@ -1,8 +1,3 @@
-// fetch("books.json")
-// .then(response => response.json())
-// .then(books => {
-// 	localStorage.setItem("books", JSON.stringify(books));
-// });
 let token_data = document.getElementById("genre").value;
 token_data=JSON.parse(token_data);
 
@@ -20,16 +15,16 @@ function loadInitialItems(){
         if(counter < initialItems){
             out += `
             
-                <div class= "curren book ">
-                    <div class="d-flex position-relative ">
-                        <img class="bd-placeholder-img flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
-                        <div>
-                            <h5 class="mt-0">${book.title}</h5>
-                            <p>${book.introduction}</p>
-                            <a class="stretched-link" href="/render/${book.id}"> </a>
-                        </div>
+            <div class= "curren book ">
+                <div class="d-flex position-relative bg-secondary-subtle rounded p-2 shadow-sm ">
+                    <img class="bd-placeholder-img flex-shrink-0 me-3 rounded" width="144" height="96" src="/static/${book.image}" >
+                    <div>
+                        <h5 class="fs-5 fw-semibold text-capitalize">${book.title}</h5>
+                        <p class="lead lh-sm fs-6 fw-normal mb-0">${book.introduction}</p>
+                        <a class="stretched-link" href="/render/${book.id}"> </a>
                     </div>
                 </div>
+            </div>
            
             `;
         }
@@ -51,16 +46,16 @@ function loadData(){
         if(counter >= currentDisplayedItems && counter < loadItems + currentDisplayedItems){
             out += `
         
-            <div class= "curren book">
-                <div class="d-flex position-relative ">
-                    <img class="bd-placeholder-img flex-shrink-0 me-3" width="144" height="96" src="/static/${book.image}" role="img" aria-label="Generic placeholder image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Generic placeholder image</title><rect width="100%" height="100%" fill="#868e96"></rect>
-                    <div>
-                        <h5 class="mt-0">${book.title}</h5>
-                        <p>${book.introduction}</p>
-                        <a class="stretched-link" href="/render/${book.id}"></a>
+                <div class= "curren book ">
+                    <div class="d-flex position-relative bg-secondary-subtle rounded p-2 shadow-sm ">
+                        <img class="bd-placeholder-img flex-shrink-0 me-3 rounded" width="144" height="96" src="/static/${book.image}" >
+                        <div>
+                            <h5 class="fs-5 fw-semibold text-capitalize">${book.title}</h5>
+                            <p class="lead lh-sm fs-6 fw-normal mb-0">${book.introduction}</p>
+                            <a class="stretched-link" href="/render/${book.id}"> </a>
+                        </div>
                     </div>
                 </div>
-            </div>
         
             `;
         }
