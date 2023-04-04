@@ -34,7 +34,7 @@ def home_page():
         group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
     MentalHealth=Content.query.join(Likess.likedd).filter(Content.genre=='Mental Health').\
         group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
-    FoodandBeverages=Content.query.join(Likess.likedd).filter(Content.genre=='Food and Beverages').\
+    FoodandBeverage=Content.query.join(Likess.likedd).filter(Content.genre=='Food and Beverage').\
         group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
     Flowers=Content.query.join(Likess.likedd).filter(Content.genre=='Flowers').\
         group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
@@ -46,7 +46,7 @@ def home_page():
         filter(Viewed_pages.viewreg>threeDaysAgoDate).limit(5)
     return render_template ('homepage.html',\
         latest=latest,trending=trending,popular=popular,BeautyandLifestyle=BeautyandLifestyle,news=news,\
-        Technology=Technology,Travelling=Travelling,MentalHealth=MentalHealth,FoodandBeverages=FoodandBeverages,\
+        Technology=Technology,Travelling=Travelling,MentalHealth=MentalHealth,FoodandBeverage=FoodandBeverage,\
             Flowers=Flowers,Celebrities=Celebrities)
 
 @app.route('/creatorregistration', methods=['POST','GET'])

@@ -33,7 +33,7 @@ Wavesinall: lets debate.{{content.id}}
                         <label for="floatingTextarea">Comments</label>
                         <input id="article_id" name="article_id" type="hidden" value="{{content.id}}">
                         <br>
-                        <div class=" position-relative text-center me-auto row">
+                        <div class=" position-relative text-center me-auto row mb-5">
                             <div class="col-4 position-absolute top-50 start-0 translate-middle-y">
                                 {% if likes.likerr == current_user or likes.alikerr == current_user %}
                                     <a href = "/like/unlike/{{likes.like_id}}"type="button" class=" btn btn-sm btn-outline-primary">
@@ -58,7 +58,7 @@ Wavesinall: lets debate.{{content.id}}
                     
                         
                     {% else %}
-                    <div class="p-1 mb-2 bg-secondary-subtle text-muted text-center fs-6 fw-light mx-auto rounded-4" style="width: 60%;">Login to Comment</div>
+                    <div class="p-1 mb-2 bg-secondary-subtle text-muted text-center fs-6 fw-light mx-auto rounded-4 mb-4" style="width: 60%;">Login to Comment</div>
                     {% endif %}
                     
                 </div>
@@ -77,8 +77,3 @@ Wavesinall: lets debate.{{content.id}}
 </script>
 
 {% endblock%}
-<div class="grid text-center">
-    <div class="g-col-4">.g-col-4</div>
-    <div class="g-col-4">.g-col-4</div>
-    <div class="g-col-4">.g-col-4</div>
-</div>
