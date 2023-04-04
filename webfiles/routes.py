@@ -135,6 +135,22 @@ def profile_page(id):
     return render_template('profile.html', user= user,comments=comment_json,\
                            liked=liked_json,created=created_json, newcomments=newCommentJson)
 
+app.route('/subprofile/<id>')
+@login_required
+def subprofile_page(id):
+    newcontent = Content.query.filter(Content.contentreg > Subscriber.last_visit).all()
+    newcontent_dict = dict_content(newcontent)
+    newcontent_json = json.dumps(newcontent_dict)
+    likedContent = Content.query.join(Content.likedd).filter(Likess.liker_id==current_user.id).all()
+    likedContent_dict = dict_content(likedContent)
+    likedContent_json = json.dumps(likedContent_dict)
+    readContent = Content.query.join(Content.id == Viewed_pages.Viewed_page).\
+        filter(Viewed_pages.viewer_id==current_user.id).all()
+    readContent_dict = dict_content(readContent)
+    readContent_json = json.dumps(readContent_dict)
+
+    return render_template('subprofile.html', liked=likedContent_json, new=newcontent_json, read=readContent_json)
+
 @app.route('/createcontent', methods = ['POST', 'GET'])
 @login_required
 def createcontent_page():

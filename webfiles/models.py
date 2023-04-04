@@ -16,6 +16,7 @@ class Subscriber(db.Model):
     password_hash = db.Column(db.String, nullable= False)
     comments = db.relationship('Comment', backref='commenter', lazy=True)
     liker = db.relationship('Likess', backref='likerr', lazy=True)
+    last_visit=db.Column(db.DateTime )
     viewerreg= db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __init__(self, user_name, user_email,
