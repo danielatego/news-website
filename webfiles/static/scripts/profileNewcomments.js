@@ -17,7 +17,7 @@ function loadnewcommentInitialItems(){
         
         if(counter < newcomment_initialItems){
             out += `
-            <div class= "co p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
+            <div class= "nc p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
                 <div class="row">
                     <div class="col">
                         <p class=" fs-6 text-capitalize mb-0">${book.name}</p>
@@ -52,7 +52,7 @@ function loadnewcommentData(){
         
         if(counter >= currentDisplayedItems && counter < newcomment_loadItems + currentDisplayedItems){
             out += `
-            <div class= "co p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
+            <div class= "nc p-2 mb-2 bg-secondary-subtle text-emphasis-dark  rounded-4 row-gap-3" >
                 <div class="row">
                     <div class="col">
                         <p class=" fs-6 text-capitalize mb-0">${book.name}</p>
