@@ -9,7 +9,7 @@ Create Content Page
 <body class="text-center">
     
     
-    <div class="container text-center">
+    <div class="container text-center mb-5">
         <form method="POST" autocomplete="off"class="form-register" enctype="multipart/form-data" style="color:rgb(8, 8, 8)">
             {{ form.hidden_tag() }}
             <br>
@@ -32,7 +32,7 @@ Create Content Page
             {{ form.introduction(class="form-control", placeholder='Captivating introduction of your article') }}
             <br>
             <div class="text-center text-muted">Click the + icon to start creating your article</div>
-            <div class=" container-fluid" id="editorjs"></div>
+            <div class=" container-fluid mb-5" id="editorjs" ></div>
 
             <script src="../static/index.js"></script>
             
@@ -51,10 +51,5 @@ Create Content Page
     </div>
     
 </body>
+
 {% endblock %}
-<!--<div class="container">
-    <div id="editorjs"></div>
-</div>
-<script src="./index.js"></script>
-<h1>*****</h1>
-<div  onclick="myFunction()" class="btn">Save</div>

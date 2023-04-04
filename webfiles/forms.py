@@ -37,7 +37,7 @@ class CreatorregForm(FlaskForm):
 class ContentForm(FlaskForm):
 
     title = StringField(label='Article Title', validators=[DataRequired('Title of the article is required'),
-                                                           Length(min=4,max=40,message='Brief and captivating title')])
+                                                           Length(min=4,max=100,message='Brief and captivating title')])
     genre = SelectField(label='Genre of your article',validators=[DataRequired('Genre of the article is required')],
                                                             choices=[('News'),
                                                             ('Technology'), ('Travelling'),('Celebrities'),
