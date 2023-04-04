@@ -8,9 +8,20 @@ Wavesinall: lets debate.{{content.id}}
 <input type="hidden" name="contentx" id="content_idx" value="{{content.content}}">
 <input type="hidden" name="comment" id="comment" value="{{comment}}">
 <div class=" container">
-    <div class="col-md-7 text-muted mb-0 mx-auto">
-        <p class="mb-0 text-capitalize"> By: {{content.creator.first_name}} {{content.creator.second_name}}</p>
-        <p class="mb-0"> Updated:  {{content.time_since_creation}} </p>
+    <div class="row">
+        <div class="col text-muted mb-0 mx-auto">
+            <div class="d-flex flex-column mb-3">
+                <p class="mb-0 text-capitalize"> By: {{content.creator.first_name}} {{content.creator.second_name}}</p>
+                <p class="mb-0"> Updated:  {{content.time_since_creation}} </p>
+            </div>
+        </div>
+        <div class="col text-muted mb-0 mx-auto">
+            <div class="d-flex flex-row mb-3">
+                <div class="p-2">Flex item 1</div>
+                <div class="p-2">Flex item 2</div>
+            </div>
+              
+        </div>
     </div>
     <div id="editorjs"></div>
     <div class="container ">
