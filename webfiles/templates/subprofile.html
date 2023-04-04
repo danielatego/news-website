@@ -8,10 +8,12 @@ Wavesinall: Messages.
     
     <input type="hidden" name="liked" id="liked" value="{{liked}}">
     <input type="hidden" name="new" id="created" value="{{new}}">
-    <input type="hidden" name="new" id="createdi" value="{{read}}">
+    <input type="hidden" name="read" id="createdi" value="{{read}}">
     
 
-    <div class="container-fluid mb-5">
+    <div class="container-fluid mb-5 text-center">
+        <h1 class="bd-title mb-0 text-start mb-4" id="content">Profile</h1>
+        <p class="bd-lead fs-4">Welcome, <strong class="text-capitalize">{{current_user.user_name}}</strong> glad to see you.</p>
         <br>
         <div class="row ">
             <div class="col">
@@ -27,7 +29,7 @@ Wavesinall: Messages.
                 <div class="newcomment">
                     <!-- content displaye from the javascript file -->
                     
-                    <button onclick="loadnew_messagesData()" class="load-more-button"><span>&#10093;</span> </button>
+                    <button onclick="loadcreatediDatai()" class="load-more-button"><span>&#10093;</span> </button>
                 </div>
             </div>
             <div class="col">
@@ -45,9 +47,10 @@ Wavesinall: Messages.
     </div>
     <script src="../static/scripts/profileLIkes.js"></script>
     <script src="../static/scripts/profilePublished.js"></script>
-    <script src="../static/scripts/profileNewcomments.js"></script>
+    <script src="../static/scripts/subprofileviewed.js"></script>
     <script>
         loadlikedInitialItems();
+        loadcreatediInitialItemsi()
         loadcreatedInitialItems();
         
     </script>

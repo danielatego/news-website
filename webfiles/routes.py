@@ -141,16 +141,19 @@ def subprofile_page():
     newcontent = Content.query.filter(Content.contentreg > current_user.last_visit).all()
     newcontent_dict = dict_content(newcontent)
     newcontent_json = json.dumps(newcontent_dict)
-    print(newcontent)
     likedContent = Content.query.join(Likess.likedd).filter(Likess.liker_id==current_user.id).all()
     likedContent_dict = dict_content(likedContent)
     likedContent_json = json.dumps(likedContent_dict)
-    # readContent = Content.query.join(Content.id == Viewed_pages.Viewed_page).all()
-    #     filter(Viewed_pages.viewer_id==current_user.id).all()
-    # readContent_dict = dict_content(readContent)
-    # readContent_json = json.dumps(readContent_dict)
+    readContent = Content.query.filter(Content.id == Viewed_pages.Viewed_page).\
+        filter(Viewed_pages.viewer_id==current_user.id).all()
+    readContent_dict = dict_content(readContent)
+    readContent_json = json.dumps(readContent_dict)
 
-    return render_template('subprofile.html', liked=likedContent_json, new=newcontent_json,) #read=readContent_json)
+    current_user.last_visit= datetime.now()
+    db.session.add(current_user)
+    db.session.commit()
+
+    return render_template('subprofile.html', liked=likedContent_json, new=newcontent_json,read=readContent_json)
 
 @app.route('/createcontent', methods = ['POST', 'GET'])
 @login_required
