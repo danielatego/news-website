@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-center text-center">
+    <div class="d-flex justify-content-center text-center signin mx-auto">
         <div class="container-md mx-auto">
             <form method="POST" autocomplete="off"class="form-signin" style="color:rgb(8, 8, 8)">
                 {{ form.hidden_tag() }}
@@ -16,9 +16,14 @@
                     Please Login
                 </h1>
                 <br>
-                {{ form.email_address(class="form-control rounded-bottom-0", placeholder="User Name") }}
-
-                {{ form.password(class="form-control rounded-top-0", placeholder="Password") }}
+                <div class="form-floating">
+                    {{ form.email_address(class="form-control rounded-bottom-0",style="margin-bottom: -1px;", placeholder="User Name") }}
+                    <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating">
+                    {{ form.password(class="form-control rounded-top-0", placeholder="Password") }}
+                    <label for="floatingInput">Password</label>
+                </div>
 
                 <br>
 

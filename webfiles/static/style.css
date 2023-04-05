@@ -114,7 +114,8 @@ body{
 }
 
 .signin{
-	
+	align-items: center;
+	height:80vh;
 	width: 330px;
 }
 .tb {
