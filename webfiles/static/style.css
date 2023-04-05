@@ -108,8 +108,7 @@ body{
 	height:25px;
 	width:100%;
 }
-#myDiv
- { 
-	width: 100vw; 
-	height: 100vh 
+.rowheader{
+	height:auto;
+	width:638px;
 }

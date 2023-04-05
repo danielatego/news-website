@@ -8,19 +8,50 @@ Wavesinall: lets debate.{{content.id}}
 <input type="hidden" name="contentx" id="content_idx" value="{{content.content}}">
 <input type="hidden" name="comment" id="comment" value="{{comment}}">
 <div class=" container">
-    <div class="row">
-        <div class="col text-muted mb-0 mx-auto">
-            <div class="d-flex flex-column mb-3">
-                <p class="mb-0 text-capitalize"> By: {{content.creator.first_name}} {{content.creator.second_name}}</p>
-                <p class="mb-0"> Updated:  {{content.time_since_creation}} </p>
+    <div class="row mx-auto d-sm-none ">
+        <div class="col-7 text-muted p-0 mb-0 mx-auto">
+            <div class="d-flex flex-column mb-0">
+                <p class="mb-0 text-capitalize"> By: daniel atego</p>
+                <p class="mb-0"> Updated:  23 hours ago </p>
             </div>
         </div>
-        <div class="col text-muted mb-0 mx-auto">
-            <div class="d-flex flex-row mb-3">
-                <div class="p-2">Flex item 1</div>
-                <div class="p-2">Flex item 2</div>
+        <div class="col-5 text-muted mb-0 mx-auto p-0">
+            <div class="d-flex flex-row my-2 justify-content-end">
+                <div class="ms-0">
+                    <img src="/static/icons/facebook.svg" alt="" width="32" height="32">
+                </div>
+                <div class="ms-2">
+                    <img src="/static/icons/twitter.svg" alt="" width="32" height="32">
+                </div>
+                <div class="ms-2">
+                    <img src="/static/icons/link.svg" alt="" width="32" height="32">
+                </div>
             </div>
               
+        </div>
+    </div>
+    <div class=" d-none d-md-block">
+        <div class="row rowheader mx-auto ">
+            <div class="col text-muted p-0 mb-0 mx-auto">
+                <div class="d-flex flex-column mb-0">
+                    <p class="mb-0 text-capitalize"> By: daniel atego</p>
+                    <p class="mb-0"> Updated:  23 hours ago </p>
+                </div>
+            </div>
+            <div class="col text-muted mb-0 mx-auto">
+                <div class="d-flex flex-row mb-0 p-2 justify-content-end">
+                    <div class="ms-0">
+                        <img src="/static/icons/facebook.svg" alt="" width="32" height="32">
+                    </div>
+                    <div class="ms-3">
+                        <img src="/static/icons/twitter.svg" alt="" width="32" height="32">
+                    </div>
+                    <div class="ms-3">
+                        <img src="/static/icons/link.svg" alt="" width="32" height="32">
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </div>
     <div id="editorjs"></div>
