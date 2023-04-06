@@ -63,7 +63,6 @@ def creatorregister_page():
         db.session.add(creator_to_add)
         db.session.commit()
         token = generate_confirmation_token(creator_to_add.creator_email)
-        print(token)
         confirm_url= url_for('confirm_email',token = token, _external =True)
         html = render_template('activate.html',confirm_url=confirm_url)
         subject = 'Please confirm your email'
@@ -114,9 +113,12 @@ def login_page():
 def resetpassword_page():
     form = ForgotPasswordForm()
     if form.validate_on_submit():
-        
+        token = generate_confirmation_token(form.email_address.data)
+        reset_url=url_for('home_page',token=token, _external =True)
+        html = render_template('reset.html',reset_url=reset_url)
+        subject = "Change your Password."
+        send_mail(form.email_address.data,subject,html)
         flash(f'An email has been sent to you. Kindly follow the instructions to reset your password', category='info')
-        return redirect(url_for('home_page'))
     if form.errors != {}:
         for err_msg in form.errors.values():
             flash(f'{err_msg}', category='danger')
