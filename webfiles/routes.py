@@ -5,7 +5,7 @@ from webfiles import app, mail
 from webfiles.email import send_mail
 import os,json
 from flask import render_template,url_for,flash,request, redirect
-from webfiles.forms import CreatorregForm,\
+from webfiles.forms import CreatorregForm,ForgotPasswordForm,\
     ContentForm,ViewerregForm,LoginForm,EditSaveForm,CommentForm
 from webfiles.models import Creators, Content,\
     Subscriber,Comment,Likess,Viewed_pages
@@ -110,9 +110,17 @@ def login_page():
 
     return render_template('login.html', form=form)  
 
-@app.route('/resetpassword')
+@app.route('/resetpassword', methods = ["GET","POST"])
 def resetpassword_page():
-    return render_template('forgotpassword.html')
+    form = ForgotPasswordForm()
+    if form.validate_on_submit():
+        
+        flash(f'An email has been sent to you. Kindly follow the instructions to reset your password', category='info')
+        return redirect(url_for('home_page'))
+    if form.errors != {}:
+        for err_msg in form.errors.values():
+            flash(f'{err_msg}', category='danger')
+    return render_template('forgotpassword.html',form=form)
 
 @app.route('/profile/<id>')
 @login_required

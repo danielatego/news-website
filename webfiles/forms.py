@@ -59,9 +59,19 @@ class EditSaveForm(FlaskForm):
     post = SubmitField(label='Post')
 
 class LoginForm(FlaskForm):
-    email_address = StringField(label='email address', validators=[DataRequired('Email address is required')])
+    email_address = StringField(label='email address', validators=[Email(),DataRequired('Email address is required')])
     password = PasswordField(label='Password', validators=[DataRequired('Password is required')])
     submit = SubmitField(label='Sign in')
+
+class ForgotPasswordForm(FlaskForm):
+    def validate_email_address(self, email_address_to_check):
+        email_address=Creators.query.filter_by(creator_email=email_address_to_check.data).first()
+        email_address1=Subscriber.query.filter_by(user_email=email_address_to_check.data).first()
+        if not (email_address or email_address1):
+            raise ValidationError('The Email Address is invalid.')
+        
+    email_address = StringField(label='Email Address', validators=[DataRequired('Email address is required')])
+    submit = SubmitField(label='Send Email')
     
 class ViewerregForm(FlaskForm):
     def validate_user_name(self, username_to_check):

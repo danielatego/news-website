@@ -97,16 +97,20 @@
         </div>
     </nav>
     
-    <br>
     {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} mx-auto text-center rounded-4 px-0 alert-dismissible fade show"role = "alert" style="width: 90%;">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                          <span aria-hidden="true"></span>
+                  <div class=" alerty row alert alert-{{ category }} mx-auto mt-2 text-start rounded-4 py-1 px-0 alert-dismissible fade show"role = "alert" >
+                    <div class="col-11 py-2">
+                      <span>{{ message }}</span>
+                    </div>
+                    <div class="col-1 px-0">
+                      <button type="button" class="btn px-0" data-bs-dismiss="alert" aria-label="Close">
+                        <img src="/static/icons/x.svg" alt="" width="20" height="20">
+                        <span aria-hidden="true"></span>
                       </button>
                     </div>
+                  </div>  
                 {% endfor %}
             {% endif %}
         {% endwith %}
