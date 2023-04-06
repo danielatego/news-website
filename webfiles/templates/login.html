@@ -24,17 +24,11 @@
                     {{ form.password(class="form-control rounded-top-0", placeholder="Password") }}
                     <label for="floatingInput">Password</label>
                 </div>
-
-                <br>
-
-               
-                {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
-                <br>
-                <br>
-                <div class="checkbox mb-3">
-                    <h6>Do not have an account?</h6>
-                    <a href="{{url_for('viewerregister_page')}}" class="btn btn-sm btn-secondary">Register</a>
+                {{ form.submit(class="btn btn-lg btn-block mb-4 w-100 btn-primary") }}
+                <div class="d-flex mb-4">
+                    <a href="" class="text-decoration-none"><p class="mb-0 fw-l">forgot password ?</p></a>
                 </div>
+                <a href="{{url_for('viewerregister_page')}}" class="btn w-100 btn-lg btn-outline-dark">Create New Account</a>
             </form>
         </div>
     </div>
