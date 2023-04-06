@@ -110,6 +110,10 @@ def login_page():
 
     return render_template('login.html', form=form)  
 
+@app.route('/resetpassword')
+def resetpassword_page():
+    return render_template('forgotpassword.html')
+
 @app.route('/profile/<id>')
 @login_required
 def profile_page(id):
