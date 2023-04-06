@@ -118,19 +118,18 @@ body{
 	height:75vh;
 	width: 330px;
 }
-.
 .forgotpass{
-	
-	display: block;
+	//align:center;
+	background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 5%;
+    color: #000000;
+    font-size: 16px;
+    //font-weight: bold;
+    left: -1px;
+    padding: 10px ;
+	height:500px;
 	width: 330px;
-	height: 75px;
-	//font-size: 16px;
-	margin: 50px auto;
-	border: thin solid #e4e4e4;
-	border-radius: 5%;
-	line-height: 60px;
-	cursor: pointer;
-	transition: box-shadow .2s;
-	background-color: #fff;
+
 
 }
