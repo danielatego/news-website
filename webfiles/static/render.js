@@ -130,9 +130,11 @@ let token_data = document.getElementById("content_idx").value;
     })
     function myFunction() {
         // Get the text field
+        const copy = navigator.clipboard
         var id = document.getElementById("contentid").value;
+        console.log(id)
         var copyText = (`http://192.168.100.5:5000/render/${id}`);
-        navigator.clipboard.writeText(copyText);
+        copy.writeText(copyText);
         
         // Alert the copied text
         alert("Link Copied.");

@@ -76,7 +76,7 @@ Wavesinall: lets debate.{{content.id}}
                     
                     {% if current_user.is_authenticated and (current_user.is_subscriber or current_user.is_author) %}
                         {{ form.comment(class="form-control", placeholder="Leave a comment here", id="floatingTextarea") }}
-                        <label for="floatingTextarea">Comments</label>
+                        <label for="floatingTextarea" class="text-muted">Comment...</label>
                         <input id="article_id" name="article_id" type="hidden" value="{{content.id}}">
                         <br>
                         <div class=" position-relative text-center me-auto row mb-5">

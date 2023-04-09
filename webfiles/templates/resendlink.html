@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Password Reset Page
+
+{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center" style="height: 85dvh;">
+        <form method="POST" autocomplete="off"class="d-flex align-items-center 
+                                                    flex-column text-center forgotpass mx-auto ">
+            {{ form.hidden_tag() }}
+            <div class="  p-2 mb-3 rounded-top-4 justify-content-center " >
+                <img src= "{{url_for('static', filename = 'logo.svg')}}"width="80" height="80" alt="" class=" ">
+            </div>
+            <h1 class ="h3 mb-0 p-2 font-weight-normal">
+                Resend Confirmation Link
+            </h1>
+            
+       
+                {{ form.submit(class="btn btn-lg btn-success  my-auto btn-primary",style="width: 80%;") }}
+        </form>
+</div>
+<script src="../static/scripts/passwordtoggler.js"></script>
+{% endblock %}

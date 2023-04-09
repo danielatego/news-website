@@ -7,7 +7,7 @@ import os,json
 from flask import render_template,url_for,flash,request, redirect
 from webfiles.forms import CreatorregForm,ForgotPasswordForm,\
     ContentForm,ViewerregForm,LoginForm,EditSaveForm,CommentForm,\
-    passwordChange
+    passwordChange, ResendLinkForm
 from webfiles.models import Creators, Content,\
     Subscriber,Comment,Likess,Viewed_pages
 from webfiles.token import generate_confirmation_token,confirm_token,\
@@ -134,7 +134,12 @@ def changePassword(token):
             email=confirm_token_password(token)
         except:
             flash('The link is invalid or has expired.',category='danger')
+        print(email)
+    
         user = Creators.query.filter_by(creator_email= email).first()
+        if user == None:
+                user = Subscriber.query.filter(Subscriber.user_email==email).first()
+        
         if user.is_subscriber():
             user.password_hash = bcrypt.generate_password_hash(form.password1.data).decode('utf-8')
             db.session.add(user)
@@ -148,7 +153,6 @@ def changePassword(token):
             flash(f'You have changed your account password',category= 'success')
             return redirect(url_for('login_page'))
     return render_template('passwordChange.html',form = form)
-
 
 @app.route('/profile/<id>')
 @login_required
@@ -216,7 +220,7 @@ def createcontent_page():
         return redirect(url_for('home_page'))
     if form.errors != {}:
         for err_msg in form.errors.values():
-            flash(f'There was and error in creating content{err_msg}',category='danger')
+            flash(f'{err_msg}',category='danger')
     return render_template('contentcreation.html' ,form = form)
 
 @app.route('/confirm/<token>')
@@ -225,6 +229,8 @@ def confirm_email(token):
         email=confirm_token(token)
     except:
         flash('The confirmation link is invalid or has expired.',category='danger')
+        return redirect(url_for('resendlink_page'))
+
     user = Creators.query.filter_by(creator_email= email).first()
     if user.confirmed:
         flash('Account already confirmed. Please login.',category='success')
@@ -233,10 +239,26 @@ def confirm_email(token):
         user.confirmed_on = datetime.now()
         db.session.add(user)
         db.session.commit()
-        #login_user(user)
-        #flash('You have confirmed your account. Thanks!', category='success')
-        flash(f'Your Account is successfully created and confirmed! You are now logged in as: {user.user_name}',category= 'success')
+        flash(f'Your Email has been verified successfully',category= 'success')
     return redirect(url_for('login_page'))
+
+@app.route('/resendlink', methods = ['POST','GET'])
+@login_required
+def resendlink_page():
+    form = ResendLinkForm()
+    if current_user.verified:
+        return redirect(url_for('login_page'))
+    if form.validate_on_submit():
+        if current_user.verified:
+            return redirect(url_for('login_page'))
+        token = generate_confirmation_token(current_user.creator_email)
+        confirm_url= url_for('confirm_email',token = token, _external =True)
+        html = render_template('activate.html',confirm_url=confirm_url)
+        subject = 'Please confirm your email'
+        send_mail(current_user.creator_email, subject, html)
+        flash(f'An email has been sent to you. Kindly confirm these account to proceed', category='info')
+        return redirect(url_for('login_page'))
+    return render_template("resendlink.html", form = form)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():

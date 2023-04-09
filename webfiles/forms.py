@@ -58,6 +58,9 @@ class EditSaveForm(FlaskForm):
     content =HiddenField(label='Content',validators=[DataRequired('Content was not saved or is empty')],id='content')
     post = SubmitField(label='Post')
 
+class ResendLinkForm(FlaskForm):
+    submit = SubmitField(label='Send Link')
+    
 class LoginForm(FlaskForm):
     email_address = StringField(label='email address', validators=[Email(),DataRequired('Email address is required')])
     password = PasswordField(label='Password', validators=[DataRequired('Password is required')])

@@ -12,6 +12,7 @@ Create Content Page
     <div class="container text-center mb-5">
         <form method="POST" autocomplete="off"class="form-register" enctype="multipart/form-data" style="color:rgb(8, 8, 8)">
             {{ form.hidden_tag() }}
+            {% include 'modals/create.html' %}
             <br>
             <img src="{{url_for('static', filename = 'logo.svg')}}" width="100" height="100" alt="">
             <br>
@@ -31,22 +32,22 @@ Create Content Page
             {{ form.introduction.label() }}
             {{ form.introduction(class="form-control", placeholder='Captivating introduction of your article') }}
             <br>
-            <div class="text-center text-muted">Click the + icon to start creating your article</div>
+            <div class="text-center text-muted">Click the <strong class="text-danger">+</strong> icon to start creating your article</div>
             <div class=" container-fluid mb-5" id="editorjs" ></div>
 
             <script src="../static/index.js"></script>
             
-            <div  onclick="myFunction()" class="bitn">Save</div>
+            <div  onclick="myFunction()" class="">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Submit
+                </button>
+            </div>
 
             <br>
 
-            <!--{{ form.content.label() }}-->
             {{ form.content(class="form-control", placeholder="genre") }}
             <br>
-            <div class="text-center text-muted text-danger-emphasis">Remember to click <b>save</b> before clicking <b>post</b> </div>
-            <br>
-            {{ form.post(class="btn btn-lg btn-block btn-primary")}}
-            <br>
+          
         </form>
     </div>
     
