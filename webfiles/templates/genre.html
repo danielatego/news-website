@@ -35,14 +35,14 @@ Wavesinall: lets debate.
       </ul>
       <br>
     </div>
-    <div class="d-flex flex-row justify-content-between">
+    <div class="d-flex flex-row justify-content-between m-2">
       <h1 class="bd-title mb-0 text-center" id="content">{{genre}}</h1>
       <div class="d-flex d-md-none">
-        <div class="dropdown">
+        <div class="dropdown  my-auto">
           <button class="btn btn-sm btn-dark rounded dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Genres
           </button>
-          <ul class="dropdown-menu dropdown-menu-dark">
+          <ul class="dropdown-menu bg-dark dropdown-menu-dark">
             <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'News')}}">News</a></li>
             <li><a class="dropdown-item" href="{{url_for('genre_page',genre ='Technology')}}">Technology</a></li>
             <li><a class="dropdown-item" href="{{url_for('genre_page',genre = 'Travelling')}}">Travelling</a></li>
