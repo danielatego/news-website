@@ -63,8 +63,7 @@ Wavesinall: lets debate.
           <div class="card text-bg-light bg-white rounded-4 shadow">
             <img src="{{url_for('static', filename = lates.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
             <div class="card-body p-0">
-              <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{lates.title}}</strong></h5>
-              <p class="ps-3 textarea pe-3 card-text fst-normal mb-0 lh-sm overflow-hidden" style="font-size: 16.5px;">{{lates.introduction}}</p>
+              <h5 class="card-title h4 text-center overflow-hidden textarea m-1 text-capitalize"style="font-size: 16px;"><strong>{{lates.title}}</strong></h5>
               <a href="{{ url_for('render_page',id = lates.id)}}" class="stretched-link"></a>
               <p class="text-muted text-end pe-3 mb-1 fw-light"><small>{{lates.time_since_creation}} </small></p>
             </div>
@@ -81,8 +80,7 @@ Wavesinall: lets debate.
           <div class="card text-bg-light bg-white rounded-4 shadow">
             <img src="{{url_for('static', filename = trend.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
             <div class="card-body p-0">
-              <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{trend.title}}</strong></h5>
-              <p class="ps-3 textarea pe-3 card-text fst-normal mb-0 lh-sm overflow-hidden" style="font-size: 17px;">{{trend.introduction}}</p>
+              <h5 class="card-title h4 text-center overflow-hidden textarea m-1 text-capitalize"style="font-size: 16px;"><strong>{{trend.title}}</strong></h5>
               <a href="{{ url_for('render_page',id = trend.id)}}" class="stretched-link"></a>
               <p class="text-muted text-end pe-3 mb-1 fw-light"><small>{{trend.time_since_creation}} </small></p>
             </div>
@@ -99,8 +97,7 @@ Wavesinall: lets debate.
           <div class="card text-bg-light bg-white rounded-4 shadow">
             <img src="{{url_for('static', filename = popula.image)}}" class="object-fit-fill border rounded col-4 card-img-top " width="100%" height="180" loading="lazy"alt="...">
             <div class="card-body p-0">
-              <h5 class="card-title h4 text-center overflow-hidden titlearea m-1 text-capitalize"style="font-size: 20px;"><strong>{{popula.title}}</strong></h5>
-              <p class="ps-3 textarea pe-3 card-text fst-normal mb-0 lh-sm overflow-hidden" style="font-size: 17px;">{{popula.introduction}}</p>
+              <h5 class="card-title h4 text-center overflow-hidden textarea m-1 text-capitalize"style="font-size: 16px;"><strong>{{popula.title}}</strong></h5>
               <a href="{{ url_for('render_page',id = popula.id)}}" class="stretched-link"></a>
               <p class="text-muted text-end pe-3 mb-1 fw-light"><small>{{popula.time_since_creation}} </small></p>
             </div>

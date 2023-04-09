@@ -23,29 +23,29 @@ from werkzeug.utils import secure_filename
 def home_page():
     tenDaysAgoDate = datetime.today() - timedelta(days=10)
     threeDaysAgoDate = datetime.today() - timedelta(days=3) 
-    latest = Content.query.order_by(desc('contentreg')).limit(5)
+    latest = Content.query.order_by(desc('contentreg')).filter(Content.authorized==True).limit(5)
     news=Content.query.join(Likess.likedd).filter(Content.genre=='News').\
-        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+        group_by(Content.id).order_by(desc(func.count(Content.id))).filter(Content.authorized==True).limit(3)
     Technology=Content.query.join(Likess.likedd).filter(Content.genre=='Technology').\
-        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+        group_by(Content.id).order_by(desc(func.count(Content.id))).filter(Content.authorized==True).limit(3)
     Travelling=Content.query.join(Likess.likedd).filter(Content.genre=='Travelling').\
         group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
     Celebrities=Content.query.join(Likess.likedd).filter(Content.genre=='Celebrities').\
-        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+        group_by(Content.id).order_by(desc(func.count(Content.id))).filter(Content.authorized==True).limit(3)
     BeautyandLifestyle=Content.query.join(Likess.likedd).filter(Content.genre=='Beauty and Lifestyle').\
         group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
     MentalHealth=Content.query.join(Likess.likedd).filter(Content.genre=='Mental Health').\
-        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+        group_by(Content.id).order_by(desc(func.count(Content.id))).filter(Content.authorized==True).limit(3)
     FoodandBeverage=Content.query.join(Likess.likedd).filter(Content.genre=='Food and Beverage').\
         group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
     Flowers=Content.query.join(Likess.likedd).filter(Content.genre=='Flowers').\
-        group_by(Content.id).order_by(desc(func.count(Content.id))).limit(3)
+        group_by(Content.id).order_by(desc(func.count(Content.id))).filter(Content.authorized==True).limit(3)
     popular=Content.query.join(Likess, Content.id==Likess.liked_id).\
         group_by(Content.id).order_by(desc(func.count(Content.id))).\
-        filter(Likess.likereg>tenDaysAgoDate).limit(5)
+        filter(Likess.likereg>tenDaysAgoDate).filter(Content.authorized==True).limit(5)
     trending= Content.query.join(Viewed_pages, Content.id==Viewed_pages.Viewed_page).\
         group_by(Content.id).order_by(desc(func.count(Content.id))).\
-        filter(Viewed_pages.viewreg>threeDaysAgoDate).limit(5)
+        filter(Viewed_pages.viewreg>threeDaysAgoDate).filter(Content.authorized==True).limit(5)
     return render_template ('homepage.html',\
         latest=latest,trending=trending,popular=popular,BeautyandLifestyle=BeautyandLifestyle,news=news,\
         Technology=Technology,Travelling=Travelling,MentalHealth=MentalHealth,FoodandBeverage=FoodandBeverage,\
@@ -167,10 +167,12 @@ def profile_page(id):
     comment_dict= dict_comment(comments)
     comment_json=json.dumps(comment_dict)
     liked = Content.query.join(Likess, Content.id==Likess.liked_id).\
-        filter(Likess.aliker_id==id).order_by(desc(Likess.likereg)).all()
+        filter(Likess.aliker_id==id).order_by(desc(Likess.likereg)).filter(Content.authorized==True)\
+            .filter(Content.authorized==True).all()
     liked_dict= dict_content(liked)
     liked_json=json.dumps(liked_dict)
-    created=Content.query.join(Creators, Content.creator_id==Creators.id).filter(Creators.id==id).all()
+    created=Content.query.join(Creators, Content.creator_id==Creators.id).filter(Creators.id==id)\
+        .filter(Content.authorized==True).all()
     user.visited_on= datetime.now()
     db.session.add(user)
     db.session.commit()
@@ -182,14 +184,16 @@ def profile_page(id):
 @app.route('/subprofile')
 @login_required
 def subprofile_page():
-    newcontent = Content.query.filter(Content.contentreg > current_user.last_visit).all()
+    newcontent = Content.query.filter(Content.contentreg > current_user.last_visit)\
+        .filter(Content.authorized==True).all()
     newcontent_dict = dict_content(newcontent)
     newcontent_json = json.dumps(newcontent_dict)
-    likedContent = Content.query.join(Likess.likedd).filter(Likess.liker_id==current_user.id).all()
+    likedContent = Content.query.join(Likess.likedd).filter(Likess.liker_id==current_user.id)\
+        .filter(Content.authorized==True).all()
     likedContent_dict = dict_content(likedContent)
     likedContent_json = json.dumps(likedContent_dict)
     readContent = Content.query.filter(Content.id == Viewed_pages.Viewed_page).\
-        filter(Viewed_pages.viewer_id==current_user.id).all()
+        filter(Viewed_pages.viewer_id==current_user.id).filter(Content.authorized==True).all()
     readContent_dict = dict_content(readContent)
     readContent_json = json.dumps(readContent_dict)
 

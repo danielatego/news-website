@@ -43,7 +43,7 @@ class ContentForm(FlaskForm):
                                                             ('Technology'), ('Travelling'),('Celebrities'),
                                                             ('Beauty and Lifestyle'),('Mental Health'),
                                                             ('Food and Beverages'),('Flowers')])
-    introduction = TextAreaField(label='Brief Introduction',validators=[Length(min=20, max=100),
+    introduction = TextAreaField(label='Brief Introduction',validators=[Length(min=20, max=150),
                                                             DataRequired('Introduction of the article is required')])
     image        = FileField(label='Article Image Icon',validators =[FileRequired('Article image icon is required'),
                                                             FileAllowed(app.config['ALLOWED_EXTENSIONS'],'Only images')])
