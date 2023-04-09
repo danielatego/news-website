@@ -21,15 +21,19 @@
                     <label for="floatingInput">Email address</label>
                 </div>
                 <div class="form-floating">
-                    {{ form.password(class="form-control rounded-top-0 mb-2", placeholder="Password") }}
+                    {{ form.password(class="form-control rounded-top-0 mb-2",id='pass', placeholder="Password") }}
                     <label for="floatingInput">Password</label>
                 </div>
+
+                <input type="checkbox" class=" my-2 me-auto"onclick="myFunction()"> Show Password
+                
                 {{ form.submit(class="btn btn-lg btn-block mb-4 w-100 btn-primary") }}
                 <div class="d-flex mb-4">
                     <a href="{{url_for('resetpassword_page')}}" class="text-decoration-none"><p class="mb-0 fw-l">forgot password ?</p></a>
                 </div>
                 <a href="{{url_for('viewerregister_page')}}" class="btn w-100 btn-lg btn-outline-dark">Create New Account</a>
             </form>
+            <script src="../static/scripts/passwordtoggler.js"></script>
         </div>
     </div>
 {% endblock %}
