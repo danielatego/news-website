@@ -1,4 +1,4 @@
-from webfiles import app,db
+from webfiles import app,db,bcrypt
 from sqlalchemy import desc,func
 from flask_mail import Message
 from webfiles import app, mail
@@ -6,10 +6,12 @@ from webfiles.email import send_mail
 import os,json
 from flask import render_template,url_for,flash,request, redirect
 from webfiles.forms import CreatorregForm,ForgotPasswordForm,\
-    ContentForm,ViewerregForm,LoginForm,EditSaveForm,CommentForm
+    ContentForm,ViewerregForm,LoginForm,EditSaveForm,CommentForm,\
+    passwordChange
 from webfiles.models import Creators, Content,\
     Subscriber,Comment,Likess,Viewed_pages
-from webfiles.token import generate_confirmation_token,confirm_token
+from webfiles.token import generate_confirmation_token,confirm_token,\
+    generate_passwordChange_token,confirm_token_password
 from datetime import datetime,timedelta
 from webfiles.authentication import check_admin,\
     dict_author,dict_content,dict_comment,allowed_file
@@ -68,7 +70,7 @@ def creatorregister_page():
         subject = 'Please confirm your email'
         send_mail(creator_to_add.creator_email, subject, html)
         flash(f'An email has been sent to you. Kindly confirm these account to proceed', category='info')
-        return redirect(url_for('home_page'))
+        return redirect(url_for('login_page'))
     if form.errors != {}:
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user:{err_msg}', category='danger')
@@ -113,8 +115,8 @@ def login_page():
 def resetpassword_page():
     form = ForgotPasswordForm()
     if form.validate_on_submit():
-        token = generate_confirmation_token(form.email_address.data)
-        reset_url=url_for('home_page',token=token, _external =True)
+        token = generate_passwordChange_token(form.email_address.data)
+        reset_url=url_for('changePassword',token=token, _external =True)
         html = render_template('reset.html',reset_url=reset_url)
         subject = "Change your Password."
         send_mail(form.email_address.data,subject,html)
@@ -123,6 +125,30 @@ def resetpassword_page():
         for err_msg in form.errors.values():
             flash(f'{err_msg}', category='danger')
     return render_template('forgotpassword.html',form=form)
+
+@app.route('/changePassword/<token>',methods = ["GET","POST"])
+def changePassword(token):
+    form = passwordChange()
+    if form.validate_on_submit():
+        try:
+            email=confirm_token_password(token)
+        except:
+            flash('The link is invalid or has expired.',category='danger')
+        user = Creators.query.filter_by(creator_email= email).first()
+        if user.is_subscriber():
+            user.password_hash = bcrypt.generate_password_hash(form.password1.data).decode('utf-8')
+            db.session.add(user)
+            db.session.commit()
+            flash(f'You have changed your account password',category= 'success')
+            return redirect(url_for('login_page'))
+        else:
+            user.creator_password= bcrypt.generate_password_hash(form.password1.data).decode('utf-8')
+            db.session.add(user)
+            db.session.commit()
+            flash(f'You have changed your account password',category= 'success')
+            return redirect(url_for('login_page'))
+    return render_template('passwordChange.html',form = form)
+
 
 @app.route('/profile/<id>')
 @login_required
@@ -207,10 +233,10 @@ def confirm_email(token):
         user.confirmed_on = datetime.now()
         db.session.add(user)
         db.session.commit()
-        login_user(user)
+        #login_user(user)
         #flash('You have confirmed your account. Thanks!', category='success')
         flash(f'Your Account is successfully created and confirmed! You are now logged in as: {user.user_name}',category= 'success')
-    return redirect(url_for('home_page'))
+    return redirect(url_for('login_page'))
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():

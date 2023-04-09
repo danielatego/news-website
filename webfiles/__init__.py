@@ -22,6 +22,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SQLALCHEMY_DATABASE_URI'] = POST
 app.config['SECRET_KEY'] = '6e703fb7e48a1dac0851844f'
 app.config['SECURITY_PASSWORD_SALT'] = 'Jesus name above every other else'
+app.config['SECURITY_PASSWORD_SALT1'] = 'DESIRES BEFORE KNOWLEDGE IS WRONG HOW MUCH MORE WILL HASTY FEET MISS THE WAY.'
 mail = Mail(app)
 bcrypt = Bcrypt(app)
 login_manager= LoginManager(app)

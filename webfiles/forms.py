@@ -30,7 +30,7 @@ class CreatorregForm(FlaskForm):
     password1 = PasswordField(label='Password', validators=[Length(min=6),
                                                              DataRequired('Password is required')])
     password2 = PasswordField(label='Confirm Password', 
-                                                validators=[EqualTo('password1',message='Passwords are not the same'),
+                                                validators=[EqualTo('password1',message='Passwords do not match'),
                                                             DataRequired('Confirmation password is required')])
     submit = SubmitField(label='Create Account',id='username')
 
@@ -72,6 +72,14 @@ class ForgotPasswordForm(FlaskForm):
         
     email_address = StringField(label='Email Address', validators=[DataRequired('Email address is required')])
     submit = SubmitField(label='Send Email')
+
+class passwordChange(FlaskForm):
+    password1 = PasswordField(label='Password', validators=[Length(min=6),
+                                                             DataRequired('Password is required')])
+    password2 = PasswordField(label='Confirm Password', 
+                                                validators=[EqualTo('password1',message='Passwords do not match'),
+                                                            DataRequired('Confirmation password is required')])
+    submit = SubmitField(label='Change Password')
     
 class ViewerregForm(FlaskForm):
     def validate_user_name(self, username_to_check):
