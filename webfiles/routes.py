@@ -108,7 +108,9 @@ def login_page():
             return redirect(url_for('home_page'))
         else:
             flash('Username and password are not match! Please try again', category='danger')
-
+    if form.errors != {}:
+        for err_msg in form.errors.values():
+            flash(f'{err_msg}', category='danger')
     return render_template('login.html', form=form)  
 
 @app.route('/resetpassword', methods = ["GET","POST"])
@@ -134,7 +136,6 @@ def changePassword(token):
             email=confirm_token_password(token)
         except:
             flash('The link is invalid or has expired.',category='danger')
-        print(email)
     
         user = Creators.query.filter_by(creator_email= email).first()
         if user == None:
@@ -152,6 +153,9 @@ def changePassword(token):
             db.session.commit()
             flash(f'You have changed your account password',category= 'success')
             return redirect(url_for('login_page'))
+    if form.errors != {}:
+        for err_msg in form.errors.values():
+            flash(f'{err_msg}', category='danger')
     return render_template('passwordChange.html',form = form)
 
 @app.route('/profile/<id>')
@@ -265,6 +269,7 @@ def resendlink_page():
     return render_template("resendlink.html", form = form)
 
 @app.route('/upload', methods=['GET', 'POST'])
+@login_required
 def upload_file():
     if request.method == 'POST':
         if 'image' not in request.files:
@@ -326,6 +331,8 @@ def render_page(id):
         return render_template('render.html',content=content, form=form,comment=comment_json)
 
 @app.route('/edit/<id>',methods=['POST','GET'])
+@login_required
+@check_admin
 def edit_page(id):
     form=EditSaveForm()
     content = Content.query.filter_by(id=id).first()
