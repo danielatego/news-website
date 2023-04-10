@@ -7,48 +7,58 @@ Creator Registration
 {% block content %}
 <body class="text-center">
     <div class="container">
-        <form method="POST" autocomplete="off"class="form-register" style="color:rgb(8, 8, 8)">
+        <form method="POST" autocomplete="off"class="form-register registration" style="color:rgb(8, 8, 8)">
             {{ form.hidden_tag() }}
             <br>
-            <img src="{{url_for('static', filename = 'logo.svg')}}" width="192" height="192" alt="">
+            <img src="{{url_for('static', filename = 'logo.svg')}}" width="80" height="80" alt="">
             <br>
             <h1 class="h3 mb-3 font-weight-normal">
                 Please Create your Account.
             </h1>
-            <br>
-            {{ form.first_name.label() }}
-            {{ form.first_name(class="form-control", placeholder="First Name") }}
+            <div class="form-floating mb-3">
+                {{ form.first_name(class="form-control", placeholder="First Name") }}
+                <label for="floatingInput">First Name</label>
+            </div>
 
-            {{ form.second_name.label() }}
-            {{ form.second_name(class="form-control", placeholder="Second Name") }}
+            <div class="form-floating mb-3">
+                {{ form.second_name(class="form-control", placeholder="Second Name") }}
+                <label for="floatingInput">Second Name</label>
+            </div>
             
-            {{ form.username.label() }}
-            {{ form.username(class="form-control", placeholder="Enter Unique username") }}
+            <div class="form-floating mb-3">
+                {{ form.username(class="form-control", placeholder="Enter Unique username") }}
+                <label for="floatingInput">Unique Username</label>
+            </div>
 
-            {{ form.creator_email.label() }}
-            {{ form.creator_email(class="form-control", placeholder="Email Address") }}
-            <br>
-            {{ form.about_yourself.label() }}
-            {{ form.about_yourself(class="form-control", placeholder="Tell us about yourself in 200 words") }}
-            <br>
-            {{ form.password1.label() }}
-            {{ form.password1(class="form-control", placeholder="Password") }}
+            <div class="form-floating mb-3">
+                {{ form.creator_email(class="form-control", placeholder="Email Address") }}
+                <label for="floatingInput">Email Address</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ form.about_yourself(class="form-control ",style="height: 100px;", placeholder="Tell us about yourself in 200 words") }}
+                <label class="text-muted" for="floatingTextarea2">About yourself, in 200 words.</label>
+            </div>
+            <div class="form-floating mb-3">
+                {{ form.password1(class="form-control", placeholder="Password") }}
+                <label for="floatingInput">Password</label>
+            </div>
 
-            {{ form.password2.label() }}
-            {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+            <div class="form-floating mb-3">
+                {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+                <label for="floatingInput">Confirm Password</label>
+            </div>
             
-            <br>
-
+            <input type="checkbox" class=" mb-4 me-auto"onclick="myFunction()"> Show Password
             
-            {{ form.submit(class="btn btn-lg btn-block btn-primary")}}
+            {{ form.submit(class="btn btn-lg w-100 btn-block btn-primary")}}
             <br>
             <br>
-            <div class="checkbox mb-3">
+            <div class="checkbox mb-5">
                 <h6>Already have an account?</h6>
                 <a href="{{url_for('login_page')}}" class="btn btn-sm btn-secondary">Login</a>
             </div>
         </form>
     </div>
-    
+    <script src="../static/scripts/passwordtoggler.js"></script>
 </body>
 {% endblock%}

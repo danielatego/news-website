@@ -27,9 +27,9 @@ class CreatorregForm(FlaskForm):
                                                             DataRequired('A brief Introduction of yourself is required')])
     creator_email = StringField(label='Email Address', validators= [Email(),
                                                                      DataRequired('Email address is required')])
-    password1 = PasswordField(label='Password', validators=[Length(min=6),
+    password1 = PasswordField(label='Password',id='pass', validators=[Length(min=6),
                                                              DataRequired('Password is required')])
-    password2 = PasswordField(label='Confirm Password', 
+    password2 = PasswordField(label='Confirm Password', id='passi',
                                                 validators=[EqualTo('password1',message='Passwords do not match'),
                                                             DataRequired('Confirmation password is required')])
     submit = SubmitField(label='Create Account',id='username')
