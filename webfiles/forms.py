@@ -100,7 +100,7 @@ class ViewerregForm(FlaskForm):
     user_name = StringField(label='User Name', validators=[Length(min=2, max=30), DataRequired('user name is required')])
     user_email = StringField(label='Email Address', validators= [Email(message='You have entered an invalid email'),
                                                                 DataRequired('Email is required')])
-    password1 = PasswordField(label='Password', validators=[Length(min=6), DataRequired('Password is required')])
-    password2 = PasswordField(label='Confirm Password', validators=[EqualTo('password1','Passwords are not the same'),
+    password1 = PasswordField(label='Password', id='pass',validators=[Length(min=6), DataRequired('Password is required')])
+    password2 = PasswordField(label='Confirm Password', id='passi',validators=[EqualTo('password1','Passwords are not the same'),
                                                                      DataRequired('Confirmation password is required')])
     submit = SubmitField(label='Create Account')
