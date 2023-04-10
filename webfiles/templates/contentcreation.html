@@ -20,25 +20,27 @@ Create Content Page
                 LET'S CREATE
             </h1>
             <br>
-            {{ form.title.label() }}
-            {{ form.title(class="form-control",placeholder='Title of your article') }}
-            <br>
-            {{ form.genre.label() }}
-            {{ form.genre(class="form-select", placeholder="Select genre of your article") }}
-            <br>
-            {{ form.image.label() }}
-            {{ form.image(class="form-control") }}
-            <br>
-            {{ form.introduction.label() }}
-            {{ form.introduction(class="form-control", placeholder='Captivating introduction of your article') }}
+            <div class="createcontent">
+                {{ form.title.label() }}
+                {{ form.title(class="form-control",placeholder='Title of your article') }}
+                <br>
+                {{ form.genre.label() }}
+                {{ form.genre(class="form-select", placeholder="Select genre of your article") }}
+                <br>
+                {{ form.image.label() }}
+                {{ form.image(class="form-control") }}
+                <br>
+                {{ form.introduction.label() }}
+                {{ form.introduction(class="form-control", placeholder='Captivating introduction of your article') }}
+            </div>
             <br>
             <div class="text-center text-muted">Click the <strong class="text-danger">+</strong> icon to start creating your article</div>
             <div class=" container-fluid mb-5" id="editorjs" ></div>
 
             <script src="../static/index.js"></script>
             
-            <div  onclick="myFunction()" class="">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <div  onclick="myFunction()" class=" ">
+                <button type="button" class="btn btn-success" style=" width: 250px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Submit
                 </button>
             </div>

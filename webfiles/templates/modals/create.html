@@ -4,15 +4,15 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Submit Article</h1>
+          <h1 class="modal-title fs-5 text-primary" id="staticBackdropLabel">Submit Article</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body text-start">
-          Kindly verify your work before clicking post. After clicking <strong>POST</strong> your article will be fowarded 
+          Kindly verify your work before clicking post. After clicking <strong class="text-primary" >POST</strong> your article will be fowarded 
           for admin review. 
         </div>
         <div class="modal-footer mx-auto" >
-          {{ form.post(class="btn btn-block btn-success")}}
+          {{ form.post(class="btn btn-block btn-primary",style="width: 250px;")}}
         </div>
       </div>
     </div>
