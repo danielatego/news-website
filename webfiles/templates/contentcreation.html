@@ -21,17 +21,16 @@ Create Content Page
             </h1>
             <br>
             <div class="createcontent">
-                {{ form.title.label() }}
-                {{ form.title(class="form-control",placeholder='Title of your article') }}
-                <br>
+                <div class="form-floating mb-3">
+                    {{ form.title(class="form-control",placeholder='Title of your article') }}
+                    <label for="floatingInput">Article Title</label>
+                </div>
                 {{ form.genre.label() }}
-                {{ form.genre(class="form-select", placeholder="Select genre of your article") }}
-                <br>
+                {{ form.genre(class="form-select form-select-lg mb-4",style="font-size:16px;", placeholder="Select genre of your article") }}
                 {{ form.image.label() }}
-                {{ form.image(class="form-control") }}
-                <br>
+                {{ form.image(class="form-control mb-4") }}
                 {{ form.introduction.label() }}
-                {{ form.introduction(class="form-control", placeholder='Captivating introduction of your article') }}
+                {{ form.introduction(class="form-control mb-3",style="height:100px;", placeholder='Captivating introduction of your article') }}
             </div>
             <br>
             <div class="text-center text-muted">Click the <strong class="text-danger">+</strong> icon to start creating your article</div>
@@ -56,3 +55,5 @@ Create Content Page
 </body>
 
 {% endblock %}
+
+  

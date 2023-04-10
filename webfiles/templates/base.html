@@ -66,16 +66,22 @@
                 </a>
               </li>
               {% elif current_user.is_authenticated and current_user.is_author()%}
-              <li class="nav-item">
-                {% set new_comments = current_user.commentNotification() %}
-                <a class="nav-link " aria-current="page" href="{{url_for('profile_page',id=current_user.id)}}">
-                  Profile
-                  <span class=" badge rounded-pill bg-danger"
-                    style="visibility: {% if new_comments %}  visible {% else %} hidden  {% endif %};">
-                    {{new_comments}}
-                  </span>
-                </a>
-              </li>
+                {% if current_user.confirmed%}
+                  <li class="nav-item">
+                    {% set new_comments = current_user.commentNotification() %}
+                    <a class="nav-link " aria-current="page" href="{{url_for('profile_page',id=current_user.id)}}">
+                      Profile
+                      <span class=" badge rounded-pill bg-danger"
+                        style="visibility: {% if new_comments %}  visible {% else %} hidden  {% endif %};">
+                        {{new_comments}}
+                      </span>
+                    </a>
+                  </li>
+                {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="{{url_for('resendlink_page')}}">Verify Email</a>
+                  </li>
+                {% endif %}
               <li class="nav-item">
                 <a class="nav-link " aria-current="page" href="{{url_for('logout_page')}}">Logout</a>
               </li>
