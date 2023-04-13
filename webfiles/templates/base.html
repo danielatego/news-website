@@ -65,6 +65,7 @@
                   Logout
                 </a>
               </li>
+              
               {% elif current_user.is_authenticated and current_user.is_author()%}
                 {% if current_user.confirmed%}
                   <li class="nav-item">

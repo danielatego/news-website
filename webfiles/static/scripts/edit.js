@@ -29,12 +29,7 @@ let token_data = document.getElementById("content_idx").value;
                 class: Header,
                 shortcut: 'CMD+SHIFT+H',
             },
-            attaches: {
-                class: AttachesTool,
-                config: {
-                    endpoint: 'http://localhost:8080/box'
-                }
-            },
+          
             quote: {
                 class: Quote,
                 inlineToolbar: true,

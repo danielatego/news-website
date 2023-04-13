@@ -113,13 +113,20 @@ class Creators(db.Model):
             return False
         
     def author_to_dict(self):  # for build json format
+        if self.confirmed_on == None:
+            date = 'na'
+        else:
+            date = str(self.confirmed_on.date())
+            
+        
         return {
             "id": self.id,
             "first_name":self.first_name,
             "second_name":self.second_name,
             "username": self.user_name,
             "email": self.creator_email,
-            "applicationdate": str(self.confirmed_on.date()),
+            
+            "applicationdate": date,
             "about": self.about_yourself,
             "block": self.blocked
         }

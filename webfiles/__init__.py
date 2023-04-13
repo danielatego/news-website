@@ -5,7 +5,7 @@ from webfiles.config import BaseConfig ,POST
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
-import psycopg2,os
+#import psycopg2,os
 
 UPLOAD_FOLDER = 'webfiles/static'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -13,8 +13,8 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'jonathanmurunga254@gmail.com'
-app.config['MAIL_PASSWORD'] = 'jbasnmqhjagdmblr'
+app.config['MAIL_USERNAME'] = 'wavesinall@gmail.com'
+app.config['MAIL_PASSWORD'] = 'uvkovitxibzzuhfu'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 app.config['ALLOWED_EXTENSIONS']= ALLOWED_EXTENSIONS

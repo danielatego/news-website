@@ -176,7 +176,7 @@ def profile_page(id):
     liked_dict= dict_content(liked)
     liked_json=json.dumps(liked_dict)
     created=Content.query.join(Creators, Content.creator_id==Creators.id).filter(Creators.id==id)\
-        .filter(Content.authorized==True).all()
+       .all()
     user.visited_on= datetime.now()
     db.session.add(user)
     db.session.commit()
@@ -348,7 +348,7 @@ def edit_page(id):
 
 @app.route('/genre/<genre>')
 def genre_page(genre):
-    collection = Content.query.filter_by(genre=genre).order_by(desc('contentreg')).all()
+    collection = Content.query.filter_by(genre=genre).order_by(desc('contentreg')).filter(Content.authorized==True).all()
     content_list_dict = dict_content(collection)
     json_object=json.dumps(content_list_dict)
     return render_template('genre.html', collection=json_object, genre=genre)
